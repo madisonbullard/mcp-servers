@@ -1,5 +1,5 @@
 # shortcut-mcp-server
-An Moded Context Protocol server for Shortcut.
+A [Model Context Protocol](https://modelcontextprotocol.io/) server for [Shortcut](https://www.shortcut.com/).
 
 ## Installation
 
