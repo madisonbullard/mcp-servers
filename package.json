@@ -16,7 +16,8 @@
 		"build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
-		"generate-shortcut-client": "./scripts/generate-shortcut-api-client.sh"
+		"generate-shortcut-client": "./scripts/generate-shortcut-api-client.sh",
+		"typecheck": "tsc --noEmit"
 	},
 	"files": ["build"],
 	"bin": {
