@@ -1,40 +1,11 @@
 {
-  "name": "@shortcut-mcp-server/shortcut-api-client",
-  "version": "3.0",
-  "description": "OpenAPI client for @shortcut-mcp-server/shortcut-api-client",
-  "author": "OpenAPI-Generator Contributors",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
-  },
-  "keywords": [
-    "fetch",
-    "typescript",
-    "openapi-client",
-    "openapi-generator"
-  ],
-  "license": "Unlicense",
-  "main": "./dist/index.js",
-  "type": "commonjs",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "typings": "./dist/index.d.ts",
+  "name": "shortcut-api-client",
+  "module": "src/index.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build"
+    "generate-types": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts"
   },
-  "dependencies": {
-    "whatwg-fetch": "^3.0.0",
-    "es6-promise": "^4.2.4"
-  },
-  "devDependencies": {
-    "typescript": "^4.0"
+  "exports": {
+    ".": "./src/index.ts"
   }
 }
