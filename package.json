@@ -1,0 +1,22 @@
+{
+	"name": "shortcut-mcp-server",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@types/node": "22.13.4",
+		"typescript": "5.7.3"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "1.5.0",
+		"zod": "3.24.2"
+	},
+	"scripts": {
+		"build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+		"generate-shortcut-client": "./scripts/generate-shortcut-api-client.sh"
+	},
+	"files": ["build"],
+	"bin": {
+		"shortcut": "./build/index.js"
+	}
+}
