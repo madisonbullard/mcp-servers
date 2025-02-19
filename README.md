@@ -1,6 +1,8 @@
 # shortcut-mcp-server
 A [Model Context Protocol](https://modelcontextprotocol.io/) server for [Shortcut](https://www.shortcut.com/).
 
+This repo is in development and not ready for use.
+
 ## Installation
 
 To install dependencies:
