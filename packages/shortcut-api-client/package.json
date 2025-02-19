@@ -1,5 +1,5 @@
 {
-  "name": "shortcut-api-client",
+  "name": "@shortcut-mcp-server/shortcut-api-client",
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
