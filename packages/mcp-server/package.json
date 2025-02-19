@@ -1,0 +1,17 @@
+{
+	"name": "@shortcut-mcp-server/server",
+	"module": "index.ts",
+	"type": "module",
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "1.5.0",
+		"zod": "3.24.2"
+	},
+	"scripts": {
+		"build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+		"typecheck": "tsc --noEmit"
+	},
+	"files": ["build"],
+	"bin": {
+		"shortcut": "./build/index.js"
+	}
+}

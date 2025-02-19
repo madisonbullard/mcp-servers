@@ -1,7 +1,7 @@
 {
-  "name": "",
-  "version": "",
-  "description": "OpenAPI client for ",
+  "name": "@shortcut-mcp-server/shortcut-api-client",
+  "version": "3.0",
+  "description": "OpenAPI client for @shortcut-mcp-server/shortcut-api-client",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
     "type": "git",

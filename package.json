@@ -2,25 +2,18 @@
 	"name": "shortcut-mcp-server",
 	"module": "index.ts",
 	"type": "module",
+	"workspaces": ["packages/*"],
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
 		"@types/node": "22.13.4",
 		"typescript": "5.7.3"
 	},
-	"dependencies": {
-		"@modelcontextprotocol/sdk": "1.5.0",
-		"zod": "3.24.2"
-	},
 	"scripts": {
-		"build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
 		"generate-shortcut-client": "./scripts/generate-shortcut-api-client.sh",
-		"typecheck": "tsc --noEmit"
-	},
-	"files": ["build"],
-	"bin": {
-		"shortcut": "./build/index.js"
+		"typecheck": "bun --elide-lines 0 --filter=* typecheck"
 	}
 }

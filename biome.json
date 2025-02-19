@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["src/shortcut-api-client", "openapitools.json"]
+		"ignore": ["packages/shortcut-api-client", "openapitools.json"]
 	},
 	"formatter": {
 		"enabled": true,

@@ -7,7 +7,7 @@ mkdir -p ./tmp
 curl -o ./tmp/shortcut.swagger.json https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json
 
 # Generate the client
-bunx openapi-generator-cli generate -i ./tmp/shortcut.swagger.json -g typescript -o ./src/shortcut-api-client
+bunx openapi-generator-cli generate -i ./tmp/shortcut.swagger.json -g typescript -o ./packages/shortcut-api-client --additional-properties=npmName="@shortcut-mcp-server/shortcut-api-client"
 
 # Clean up
 rm -rf ./tmp
