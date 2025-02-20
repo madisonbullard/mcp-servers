@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"outDir": "./build",
 		"rootDir": "./src",
 
 		// Enable latest features
@@ -23,13 +22,7 @@
 		// Some stricter flags (disabled by default)
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
-		"noPropertyAccessFromIndexSignature": false,
-
-		// "target": "ES2022",
-		// "module": "Node16",
-		// "moduleResolution": "Node16",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true
+		"noPropertyAccessFromIndexSignature": false
 	},
 	"include": ["src/**/*"],
 	"exclude": ["build"]
