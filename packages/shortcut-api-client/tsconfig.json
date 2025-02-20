@@ -2,8 +2,8 @@
 	"compilerOptions": {
 		"outDir": "./build",
 		"rootDir": "./src",
-    "declaration": true,
-
+		"declaration": true,
+    
 		// Enable latest features
 		"lib": ["ESNext", "DOM"],
 		// "target": "ESNext",

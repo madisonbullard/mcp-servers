@@ -1,5 +1,5 @@
 import type { RequestParams } from "@shortcut-mcp-server/shortcut-api-client";
-import { client } from "./client.js";
+import { client } from "./client";
 
 export async function getTask(
 	storyId: number,

@@ -8,7 +8,6 @@
 		"@shortcut-mcp-server/shortcut-api-client": "workspace:*"
 	},
 	"scripts": {
-		"build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
 		"typecheck": "tsc --noEmit"
 	},
 	"files": ["build"],
