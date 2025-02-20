@@ -19,7 +19,11 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noUnusedTemplateLiteral": "off",
+				"useTemplate": "off"
+			}
 		}
 	},
 	"javascript": {
