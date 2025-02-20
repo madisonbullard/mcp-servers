@@ -13,7 +13,6 @@
 	"scripts": {
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
-		"generate-shortcut-client": "./scripts/generate-shortcut-api-client.sh",
 		"typecheck": "bun --elide-lines 0 --filter=* typecheck"
 	}
 }
