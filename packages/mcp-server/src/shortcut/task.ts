@@ -1,5 +1,5 @@
 import type { RequestParams } from "@shortcut-mcp-server/shortcut-api-client";
-import { client } from "./client";
+import { client } from "./client.js";
 
 export async function getTask(
 	storyId: number,
@@ -15,7 +15,7 @@ export async function getTask(
 	const task = res.data;
 	const completed = task.complete.toString();
 
-	return `<Task id={${task.id}} position={${task.position}} completed={${completed}}>
-    ${task.description}
-  </Task>`;
+	return `    <Task id={${task.id}} position={${task.position}} completed={${completed}}>
+      ${task.description}
+    </Task>`;
 }

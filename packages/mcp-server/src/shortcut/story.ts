@@ -1,12 +1,12 @@
 import type { RequestParams } from "@shortcut-mcp-server/shortcut-api-client";
-import { client } from "./client";
-import { getTask } from "./task";
+import { client } from "./client.js";
+import { getTask } from "./task.js";
 
-export async function getStory(storyId: number, params?: RequestParams) {
-	const res = await client.api.getStory(storyId, params);
+export async function getStoryText(storyID: number, params?: RequestParams) {
+	const res = await client.api.getStory(storyID, params);
 
 	if (!res.ok || res.error) {
-		return `Failed to retrieve Shortcut story with ID ${storyId}: ${res.status} error.`;
+		return `Failed to retrieve Shortcut story with ID ${storyID}: ${res.status} error.`;
 	}
 
 	const story = res.data;
@@ -24,6 +24,7 @@ export async function getStory(storyId: number, params?: RequestParams) {
 		(link) => `<ExternalLink>${link}</ExternalLink>`,
 	);
 
+	// Indentation is important here sry it looks like ass
 	return `<Story id={${story.id}}
   name="${story.name}"
   story_type="${story.story_type}"

@@ -1,12 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { client } from "./shortcut/client";
-import { getStory } from "./shortcut/story";
-
-if (!process.env.SHORTCUT_API_TOKEN) {
-	throw new Error("SHORTCUT_API_TOKEN is not set");
-}
+import { getStoryText } from "./shortcut/story.js";
 
 const server = new McpServer({
 	name: "shortcut",
@@ -17,10 +12,10 @@ server.tool(
 	"get-story",
 	"Get a Shortcut story by ID",
 	{
-		story_id: z.number().describe("The ID of the story to get"),
+		storyID: z.number().describe("The ID of the story to get"),
 	},
-	async ({ story_id }) => {
-		const text = await getStory(story_id);
+	async ({ storyID }) => {
+		const text = await getStoryText(storyID);
 
 		return {
 			content: [
@@ -33,7 +28,13 @@ server.tool(
 	},
 );
 
-const res = await client.api.getStory(392853);
-const story = res.data;
+async function main() {
+	const transport = new StdioServerTransport();
+	await server.connect(transport);
+	console.error("Shortcut MCP Server running on stdio");
+}
 
-console.log(story.name);
+main().catch((error) => {
+	console.error("Fatal error in main():", error);
+	process.exit(1);
+});
