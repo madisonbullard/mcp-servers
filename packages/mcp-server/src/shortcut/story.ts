@@ -20,26 +20,18 @@ export async function getStoryText(storyID: number, params?: RequestParams) {
 		story.tasks.map((task) => getTask(story.id, task.id)),
 	);
 
-	const externalLinks = story.external_links.map(
-		(link) => `<ExternalLink>${link}</ExternalLink>`,
-	);
+	return `Story ${story.id}
+[Name] ${story.name}
+[Type] ${story.story_type}
+[Epic] ${epic?.name || "None"}
+[Completed] ${story.completed ? "Yes" : "No"}
+[Archived] ${story.archived ? "Yes" : "No"}
 
-	// Indentation is important here sry it looks like ass
-	return `<Story id={${story.id}}
-  name="${story.name}"
-  story_type="${story.story_type}"
-  completed={${story.completed.toString()}}
-  archived={${story.archived.toString()}}
-  epic="${epic?.name || "None"}"
->
-  <Description>
-    ${story.description}
-  </Description>
-  <Tasks>
-    ${tasks.join("\n    ")}
-  </Tasks>
-  <ExternalLinks>
-    ${externalLinks.join("\n    ")}
-  </ExternalLinks>
-</Story>`;
+[Description] ${story.description}
+
+[Tasks]
+${tasks.join("\n")}
+
+[External Links]
+${story.external_links.join("\n")}`;
 }

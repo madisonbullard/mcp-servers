@@ -15,7 +15,5 @@ export async function getTask(
 	const task = res.data;
 	const completed = task.complete.toString();
 
-	return `    <Task id={${task.id}} position={${task.position}} completed={${completed}}>
-      ${task.description}
-    </Task>`;
+	return `${completed ? "[X]" : "[ ]"} ${task.description}`;
 }
