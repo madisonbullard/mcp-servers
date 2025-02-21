@@ -13,7 +13,6 @@ export async function getTask(
 	}
 
 	const task = res.data;
-	const completed = task.complete.toString();
 
-	return `${completed ? "[X]" : "[ ]"} ${task.description}`;
+	return `${task.complete ? "[X]" : "[ ]"} ${task.description}`;
 }
