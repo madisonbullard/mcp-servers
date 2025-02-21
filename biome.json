@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["packages/shortcut-api-client"]
+		"ignore": ["packages/shortcut-api-client", "build"]
 	},
 	"formatter": {
 		"enabled": true,
