@@ -1,5 +1,5 @@
 {
-	"name": "@shortcut-mcp-server/server",
+	"name": "@shortcut-mcp-server/mcp-server",
 	"module": "index.ts",
 	"type": "module",
 	"dependencies": {
@@ -9,6 +9,6 @@
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
-		"build": "rm -rf ./src/build && bun build ./src/index.ts --outdir ./build --target browser --format cjs"
+		"build": "rm -rf ./build && tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
 	}
 }

@@ -3,7 +3,13 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts"
+    "generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts",
+    "build": "rm -rf ./build && tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
   },
-  "exports": "./src/index.ts"
+  "exports": {
+    "import": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    }
+  }
 }

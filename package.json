@@ -13,6 +13,7 @@
 	"scripts": {
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
-		"typecheck": "bun --elide-lines 0 --filter=* typecheck"
+		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
+		"build": "bun run --filter=@shortcut-mcp-server/shortcut-api-client build && bun run --filter=@shortcut-mcp-server/mcp-server build"
 	}
 }

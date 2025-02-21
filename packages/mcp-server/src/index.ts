@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { getStoryText } from "./shortcut/story";
+import { getStoryText } from "./shortcut/story.js";
 
 const server = new McpServer({
 	name: "shortcut",
