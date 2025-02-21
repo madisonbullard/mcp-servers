@@ -8,6 +8,7 @@
 		"@shortcut-mcp-server/shortcut-api-client": "workspace:*"
 	},
 	"scripts": {
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf ./src/build && bun build ./src/index.ts --outdir ./build --target browser --format cjs"
 	}
 }
