@@ -35,6 +35,7 @@ export async function init(shortcutToken: string) {
 		"Claude",
 		"claude_desktop_config.json",
 	);
+
 	const shortcutConfig = {
 		command: (await which("node")).trim(),
 		args: [__filename, "run"],
@@ -52,11 +53,13 @@ export async function init(shortcutToken: string) {
 		const existingConfig = fs.existsSync(claudeConfigPath)
 			? JSON.parse(fs.readFileSync(claudeConfigPath, "utf8"))
 			: { mcpServers: {} };
+
 		if ("shorcut" in (existingConfig?.mcpServers || {})) {
 			updateStatus(
 				`${chalk.green("Note:")} Replacing existing Shortcut MCP config:\n${chalk.gray(JSON.stringify(existingConfig.mcpServers.shortcut))}`,
 			);
 		}
+
 		const newConfig = {
 			...existingConfig,
 			mcpServers: {
@@ -64,6 +67,7 @@ export async function init(shortcutToken: string) {
 				shortcut: shortcutConfig,
 			},
 		};
+
 		fs.writeFileSync(claudeConfigPath, JSON.stringify(newConfig, null, 2));
 
 		updateStatus(
