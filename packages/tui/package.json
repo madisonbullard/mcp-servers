@@ -1,0 +1,27 @@
+{
+	"name": "@madisonbullard/mcp-server-tui",
+	"version": "0.0.0",
+	"license": "MIT",
+	"bin": "dist/cli.js",
+	"type": "module",
+	"engines": {
+		"node": ">=16"
+	},
+	"scripts": {
+		"build": "rm -rf dist && tsc",
+		"dev": "tsc --watch"
+	},
+	"files": ["dist"],
+	"dependencies": {
+		"ink": "5.1.0",
+		"meow": "13.2.0",
+		"react": "18.2.0"
+	},
+	"devDependencies": {
+		"@sindresorhus/tsconfig": "7.0.0",
+		"@types/react": "18.0.32",
+		"chalk": "5.4.1",
+		"ts-node": "10.9.2",
+		"typescript": "5.7.3"
+	}
+}

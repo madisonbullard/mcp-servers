@@ -77,9 +77,9 @@ export async function init(shortcutToken: string) {
 		updateStatus(`Wrote config to ${chalk.yellow(claudeConfigPath)}:`, false);
 		updateStatus(chalk.gray(JSON.stringify(newConfig, null, 2)));
 		updateStatus(
-			chalk.blue(
+			`${chalk.green("Success!")} ${chalk.blue(
 				`Try asking Claude to "tell me about this story: {SHORTCUT_STORY_URL}" to get started!`,
-			),
+			)}`,
 		);
 	} else {
 		const fullConfig = { mcpServers: { shortcut: shortcutConfig } };

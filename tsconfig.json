@@ -4,9 +4,7 @@
 		"lib": ["esnext"],
 		"module": "esnext",
 		"moduleResolution": "Bundler",
-		"noEmit": true,
 		"esModuleInterop": true,
-		"outDir": "dist",
 		"strict": true,
 		"skipLibCheck": true
 	},

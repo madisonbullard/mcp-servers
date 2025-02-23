@@ -1,5 +1,5 @@
 {
-	"name": "shortcut-mcp-server",
+	"name": "@madisonbullard/mcp-servers",
 	"version": "1.0.0",
 	"type": "module",
 	"private": true,
@@ -14,7 +14,7 @@
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
-		"@types/node": "22.13.4",
+		"@types/node": "22.13.5",
 		"typescript": "5.7.3"
 	}
 }

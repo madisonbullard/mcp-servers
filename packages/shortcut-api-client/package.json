@@ -18,7 +18,7 @@
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
-		"build": "tsup src/index.ts --dts --format esm --external which",
+		"build": "tsup src/index.ts --dts --format esm",
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
 		"generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts"
