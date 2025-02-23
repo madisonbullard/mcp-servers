@@ -19,10 +19,10 @@ export async function init(shortcutToken: string) {
 	logRaw(
 		createDialog([
 			`👋 Welcome to ${chalk.yellow("shortcut-mcp-server")} v${version}!`,
-			`💁‍♀️ This ${chalk.green("'init'")} process will ensure you're connected to the Shortcut API`,
-			`   and install the Shortcut MCP Server into Claude Desktop (${chalk.blue.underline("https://claude.ai/download")})`,
-			`ℹ️ For more information, visit ${chalk.blue.underline("https://github.com/madisonbullard/shortcut-mcp-server")}`,
-			`🧡 Let's get started.`,
+			`💁 This ${chalk.green("'init'")} process will ensure you're connected to the Shortcut API`,
+			`and install the Shortcut MCP Server into Claude Desktop (${chalk.blue.underline("https://claude.ai/download")})`,
+			`📚 For more information, visit ${chalk.blue.underline("https://github.com/madisonbullard/shortcut-mcp-server")}`,
+			`🫡 Let's get started.`,
 		]),
 	);
 
@@ -37,7 +37,10 @@ export async function init(shortcutToken: string) {
 	);
 	const shortcutConfig = {
 		command: (await which("node")).trim(),
-		args: [__filename, "run", shortcutToken],
+		args: [__filename, "run"],
+		env: {
+			SHORTCUT_API_TOKEN: shortcutToken,
+		},
 	};
 
 	updateStatus(

@@ -19,7 +19,6 @@ ${stories.map((story) => `[Story ${story.id} - ${story.completed ? "Completed" :
 
 export async function getEpic(epicId: number, params?: RequestParams) {
 	const res = await client.api.getEpic(epicId, params);
-
 	return res;
 }
 
