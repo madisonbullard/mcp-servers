@@ -1,19 +1,20 @@
 {
 	"name": "shortcut-mcp-server",
-	"module": "index.ts",
+	"version": "1.0.0",
 	"type": "module",
+	"private": true,
 	"workspaces": ["packages/*"],
+	"scripts": {
+		"check": "bun biome check",
+		"fix": "bun check --write ./",
+		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
+		"build": "bun run --filter=@madisonbullard/shortcut-api-client build && bun run --filter=@madisonbullard/shortcut-mcp-server build"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
 		"@types/node": "22.13.4",
 		"typescript": "5.7.3"
-	},
-	"scripts": {
-		"check": "bun biome check",
-		"fix": "bun check --write ./",
-		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
-		"build": "bun run --filter=@shortcut-mcp-server/shortcut-api-client build && bun run --filter=@shortcut-mcp-server/mcp-server build"
 	}
 }

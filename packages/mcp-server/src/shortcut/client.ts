@@ -1,14 +1,12 @@
-import { Api } from "@shortcut-mcp-server/shortcut-api-client";
-
-if (!process.env.SHORTCUT_API_TOKEN) {
-	throw new Error("SHORTCUT_API_TOKEN is not set");
-}
+import { Api } from "@madisonbullard/shortcut-api-client";
+import { config } from "../utils/config";
 
 export const client = new Api({
 	baseUrl: "https://api.app.shortcut.com",
 	baseApiParams: {
 		headers: {
-			"Shortcut-Token": process.env.SHORTCUT_API_TOKEN,
+			// biome-ignore lint/style/noNonNullAssertion: There are checks in place to ensure the token is set
+			"Shortcut-Token": config.shortcutToken!,
 		},
 	},
 });

@@ -1,37 +1,32 @@
-import type { RequestParams } from "@shortcut-mcp-server/shortcut-api-client";
+import type {
+	Epic,
+	RequestParams,
+	Story,
+} from "@shortcut-mcp-server/shortcut-api-client";
 import { client } from "./client.js";
-import { getTask } from "./task.js";
+import { getTaskText } from "./task.js";
 
-export async function getStoryText(storyID: number, params?: RequestParams) {
-	const res = await client.api.getStory(storyID, params);
-
-	if (!res.ok || res.error) {
-		return `Failed to retrieve Shortcut story with ID ${storyID}: ${res.status} error.`;
-	}
-
-	const story = res.data;
-
-	const epicRes = story.epic_id
-		? await client.api.getEpic(story.epic_id)
-		: null;
-	const epic = epicRes?.data;
-
-	const tasks = await Promise.all(
-		story.tasks.map((task) => getTask(story.id, task.id)),
-	);
+export function getStoryText(story: Story, epic: Epic | undefined) {
+	const tasks = story.tasks.map(getTaskText);
 
 	return `Story ${story.id}
 [Name] ${story.name}
 [Type] ${story.story_type}
-[Epic] ${epic?.name || "None"}
+${epic ? `[Epic ID ${epic.id}] ${epic.name}` : ""}
 [Completed] ${story.completed ? "Yes" : "No"}
 [Archived] ${story.archived ? "Yes" : "No"}
 
 [Description] ${story.description}
 
-[Tasks]
+${tasks.length ? `[Tasks]` : ""}
 ${tasks.join("\n")}
 
-[External Links]
+${story.external_links.length ? `[External Links]` : ""}
 ${story.external_links.join("\n")}`;
+}
+
+export async function getStory(storyId: number, params?: RequestParams) {
+	const res = await client.api.getStory(storyId, params);
+
+	return res;
 }

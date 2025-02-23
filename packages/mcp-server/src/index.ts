@@ -1,40 +1,51 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
-import { getStoryText } from "./shortcut/story.js";
+#!/usr/bin/env node
+import { init } from "./init";
+import { main } from "./main";
+import { config } from "./utils/config";
+import { log } from "./utils/log";
 
-const server = new McpServer({
-	name: "shortcut",
-	version: "1.0.0",
+// Handle process events
+process.on("uncaughtException", (error) => {
+	log("Uncaught exception:", error);
 });
 
-server.tool(
-	"get-story",
-	"Get a Shortcut story by ID",
-	{
-		storyID: z.number().describe("The ID of the story to get"),
-	},
-	async ({ storyID }) => {
-		const text = await getStoryText(storyID);
+process.on("unhandledRejection", (error) => {
+	log("Unhandled rejection:", error);
+});
 
-		return {
-			content: [
-				{
-					type: "text",
-					text,
-				},
-			],
-		};
-	},
-);
+const [cmd, ...args] = process.argv.slice(2);
+if (cmd === "init") {
+	const [shortcutToken, ...rest] = args;
+	if (rest.length > 0) {
+		throw new Error(
+			`Usage: npx @madisonbullard/shortcut-mcp-server init [shortcut_api_token]`,
+		);
+	}
 
-async function main() {
-	const transport = new StdioServerTransport();
-	await server.connect(transport);
-	console.error("Shortcut MCP Server running on stdio");
+	init(shortcutToken);
+} else if (cmd === "run") {
+	const [shortcutToken, ...rest] = args;
+	if (!shortcutToken && !config.shortcutToken) {
+		throw new Error(
+			`Missing Shortcut API token. Usage: npx @madisonbullard/shortcut-mcp-server run [shortcut_api_token]`,
+		);
+	}
+	if (rest.length > 0) {
+		throw new Error(
+			`Too many arguments. Usage: npx @madisonbullard/shortcut-mcp-server run [shortcut_api_token]`,
+		);
+	}
+	config.shortcutToken = shortcutToken;
+
+	log(
+		"Config loaded:",
+		JSON.stringify({
+			shortcutToken: config.shortcutToken ? "✓" : "✗",
+		}),
+	);
+
+	// Start the server
+	main();
+} else {
+	throw new Error(`Unknown command: ${cmd}. Expected 'init' or 'run'.`);
 }
-
-main().catch((error) => {
-	console.error("Fatal error in main():", error);
-	process.exit(1);
-});

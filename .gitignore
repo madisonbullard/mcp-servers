@@ -13,6 +13,7 @@ lerna-debug.log*
 # Builds
 
 build
+dist
 
 # Caches
 

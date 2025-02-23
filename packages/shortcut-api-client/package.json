@@ -1,15 +1,33 @@
 {
-  "name": "@shortcut-mcp-server/shortcut-api-client",
-  "module": "src/index.ts",
-  "type": "module",
-  "scripts": {
-    "generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts",
-    "build": "rm -rf ./build && tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
-  },
-  "exports": {
-    "import": {
-      "types": "./build/index.d.ts",
-      "default": "./build/index.js"
-    }
-  }
+	"name": "@madisonbullard/shortcut-api-client",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist"],
+	"access": "public",
+	"bin": {
+		"shortcut-api-client": "dist/index.js"
+	},
+	"exports": {
+		"import": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "tsup src/index.ts --dts --format esm --external which",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts"
+	},
+	"devDependencies": {
+		"shx": "0.3.4",
+		"tsup": "8.3.6"
+	},
+	"engines": {
+		"node": ">=16.17.0"
+	}
 }

@@ -1,14 +1,39 @@
 {
-	"name": "@shortcut-mcp-server/mcp-server",
-	"module": "index.ts",
+	"name": "@madisonbullard/shortcut-mcp-server",
+	"version": "1.0.0",
 	"type": "module",
-	"dependencies": {
-		"@modelcontextprotocol/sdk": "1.5.0",
-		"zod": "3.24.2",
-		"@shortcut-mcp-server/shortcut-api-client": "workspace:*"
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist", "README.md"],
+	"access": "public",
+	"bin": {
+		"shortcut-mcp-server": "dist/index.js"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
-		"build": "rm -rf ./build && tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
+		"build": "tsup src/index.ts --dts --format esm --external which",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"logs:watch": "tail -n 20 -F ~/Library/Logs/Claude/mcp*.log"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "1.5.0",
+		"zod": "3.24.2",
+		"@madisonbullard/shortcut-api-client": "workspace:*",
+		"@iarna/toml": "2.2.5",
+		"chalk": "5.4.1",
+		"dotenv": "16.4.7",
+		"undici": "7.3.0",
+		"which": "5.0.0",
+		"xdg-app-paths": "8.3.0"
+	},
+	"devDependencies": {
+		"@types/which": "3.0.4",
+		"shx": "0.3.4",
+		"tsup": "8.3.6"
+	},
+	"engines": {
+		"node": ">=16.17.0"
 	}
 }
