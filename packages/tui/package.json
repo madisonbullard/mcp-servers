@@ -10,7 +10,8 @@
 	"scripts": {
 		"build": "rm -rf dist && tsc",
 		"postbuild": "shx chmod +x dist/*.js",
-		"dev": "tsc --watch"
+		"dev": "tsc --watch",
+		"typecheck": "tsc --noEmit"
 	},
 	"files": ["dist"],
 	"dependencies": {
