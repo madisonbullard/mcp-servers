@@ -1,14 +1,28 @@
-import { Text } from "ink";
-import React from "react";
+import { useState } from "react";
+import Claude from "./claude.js";
+import SelectClient from "./select-client.js";
+import type { Client, Props as SelectClientProps } from "./select-client.js";
 
 type Props = {
-	name: string | undefined;
+	clients?: SelectClientProps["clients"];
 };
 
-export default function App({ name = "Stranger" }: Props) {
-	return (
-		<Text>
-			Hello, <Text color="green">{name}</Text>
-		</Text>
+export default function App({
+	clients = ["claude", "cursor", "windsurf"],
+}: Props) {
+	const [selectedClient, setSelectedClient] = useState<Client | undefined>(
+		undefined,
 	);
+
+	switch (selectedClient) {
+		case "claude":
+			return <Claude />;
+		default:
+			return (
+				<SelectClient
+					clients={clients}
+					onChange={(value) => setSelectedClient(value as Client)}
+				/>
+			);
+	}
 }
