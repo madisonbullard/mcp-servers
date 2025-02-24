@@ -1,21 +1,40 @@
-# shortcut-mcp-server
-A [Model Context Protocol](https://modelcontextprotocol.io/) server for [Shortcut](https://www.shortcut.com/).
+# @madisonbullard/mcp-servers
+A monorepo containing [Model Context Protocol](https://modelcontextprotocol.io/) servers for various use cases.
+
+## MCP Servers
+- [Shortcut](https://www.shortcut.com/) MCP server
+
+## Monorepo Structure
+- `shortcut-api-client`: A client for the Shortcut API
+- `shortcut-mcp-server`: An MCP server for Shortcut
+- `tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
 
 ## Installation
+TODO: Publish and add npx instructions
 
-To install dependencies:
+## Development
 
+- Install dependencies:
 ```bash
 bun install
 ```
 
-To run:
-
+- Build the MCP server and CLI of the server you want to develop:
 ```bash
-bun run packages/mcp-server/src/index.ts
+bun run build:{SERVER_NAME} # e.g. bun run build:shortcut
+```
+- This will create a `dist` folder in each package folder required for the server you want to develop.
+
+- Run the CLI
+```bash
+bun run packages/shortcut-mcp-server/dist/index.js # or the path to the dist folder of the CLI you want to run
 ```
 
-This project was created using `bun init` in bun v1.2.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+- Run the MCP server
+```bash
+bun run packages/shortcut-mcp-server/dist/server.js
+```
+- The client (e.g. Claude Desktop, Cursor, Windsurf, etc.) will run and connect to the MCP server without the above command, so you usually don't need to run it unless you want to manually make requests to the MCP server.
 
 ## Coding style
 Ensure `bun typecheck` and `bun check` pass. You can run `bun fix` to format the code.
