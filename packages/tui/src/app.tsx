@@ -102,14 +102,20 @@ export default function App({
 					/>
 				</>
 			) : (
-				emptyEnvValue && (
-					<>
-						<Text>Enter your {emptyEnvLabel}:</Text>
-						<TextInput
-							onSubmit={(value) => setEnv({ ...env, [emptyEnvValue]: value })}
-						/>
-					</>
-				)
+				<>
+					<Text color="blue">
+						Configuring <Text color="yellow">{packageName}</Text> for use with{" "}
+						<Text color="yellow">{selectedClient}</Text>.
+					</Text>
+					{emptyEnvValue && (
+						<>
+							<Text>Enter your {emptyEnvLabel}:</Text>
+							<TextInput
+								onSubmit={(value) => setEnv({ ...env, [emptyEnvValue]: value })}
+							/>
+						</>
+					)}
+				</>
 			)}
 		</>
 	);
