@@ -8,10 +8,11 @@
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
 		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
-		"build": "bun run --filter=@madisonbullard/shortcut-api-client build && bun run --filter=@madisonbullard/shortcut-mcp-server build"
+		"build:shortcut": "scripts/build-shortcut.sh"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@dotenvx/dotenvx": "1.37.0",
 		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
 		"@types/node": "22.13.5",
