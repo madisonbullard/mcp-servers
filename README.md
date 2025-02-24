@@ -1,16 +1,14 @@
 # @madisonbullard/mcp-servers
 A monorepo containing [Model Context Protocol](https://modelcontextprotocol.io/) servers for various use cases.
 
-## MCP Servers
+## Installing MCP Servers
 - [Shortcut](https://www.shortcut.com/) MCP server
+  - `npx @madisonbullard/shortcut-mcp-server`
 
 ## Monorepo Structure
 - `shortcut-api-client`: A client for the Shortcut API
 - `shortcut-mcp-server`: An MCP server for Shortcut
 - `tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
-
-## Installation
-TODO: Publish and add npx instructions
 
 ## Development
 

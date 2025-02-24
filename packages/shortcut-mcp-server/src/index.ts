@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { fileURLToPath } from "node:url";
 import { cli } from "@madisonbullard/mcp-server-tui";
 import { name, version } from "../package.json";

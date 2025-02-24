@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import type { Epic } from "@madisonbullard/shortcut-api-client";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
