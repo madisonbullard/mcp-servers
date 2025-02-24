@@ -22,7 +22,7 @@ export async function init(shortcutToken: string) {
 			`💁 This ${chalk.green("'init'")} process will ensure you're connected to the Shortcut API`,
 			`and install the Shortcut MCP Server into Claude Desktop (${chalk.blue.underline("https://claude.ai/download")})`,
 			`📚 For more information, visit ${chalk.blue.underline("https://github.com/madisonbullard/shortcut-mcp-server")}`,
-			`🫡 Let's get started.`,
+			`⛹️ Let's get started.`,
 		]),
 	);
 
@@ -54,7 +54,7 @@ export async function init(shortcutToken: string) {
 			? JSON.parse(fs.readFileSync(claudeConfigPath, "utf8"))
 			: { mcpServers: {} };
 
-		if ("shorcut" in (existingConfig?.mcpServers || {})) {
+		if ("shortcut" in (existingConfig?.mcpServers || {})) {
 			updateStatus(
 				`${chalk.green("Note:")} Replacing existing Shortcut MCP config:\n${chalk.gray(JSON.stringify(existingConfig.mcpServers.shortcut))}`,
 			);
