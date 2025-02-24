@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/mcp-servers",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"type": "module",
 	"private": true,
 	"workspaces": ["packages/*"],
@@ -8,7 +8,8 @@
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
 		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
-		"build:shortcut": "scripts/build-shortcut.sh"
+		"build:shortcut": "scripts/build-shortcut.sh",
+		"publish:shortcut": "bun publish --cwd packages/shortcut-api-client --access public && bun publish --cwd packages/shortcut-mcp-server --access public && bun publish --cwd packages/tui --access public"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

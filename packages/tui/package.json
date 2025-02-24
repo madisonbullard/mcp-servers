@@ -1,8 +1,8 @@
 {
 	"name": "@madisonbullard/mcp-server-tui",
-	"version": "0.0.0",
+	"version": "1.0.2",
 	"license": "MIT",
-	"bin": "dist/cli.js",
+	"access": "public",
 	"type": "module",
 	"engines": {
 		"node": ">=16"
