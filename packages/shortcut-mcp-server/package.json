@@ -21,11 +21,8 @@
 		"@modelcontextprotocol/sdk": "1.5.0",
 		"zod": "3.24.2",
 		"@madisonbullard/shortcut-api-client": "workspace:*",
-		"chalk": "5.4.1",
-		"which": "5.0.0"
 	},
 	"devDependencies": {
-		"@types/which": "3.0.4",
 		"shx": "0.3.4",
 		"tsup": "8.3.6"
 	},
