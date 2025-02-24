@@ -24,12 +24,10 @@ export default function Claude<K extends string>({
 	env,
 	command,
 	args,
-	filePath,
 	mcpServerName,
 }: {
 	command: string;
 	args: string[];
-	filePath: string;
 	env: Record<K, string>;
 	mcpServerName: string;
 }) {
@@ -45,7 +43,7 @@ export default function Claude<K extends string>({
 			async function createClaudeMCPConfigObject() {
 				return {
 					command: (await which(command)).trim(),
-					args: [filePath, args] as string[],
+					args,
 					env,
 				};
 			}
@@ -78,7 +76,7 @@ export default function Claude<K extends string>({
 				fs.writeFileSync(claudeConfigPath, JSON.stringify(newConfig, null, 2));
 			});
 		},
-		[env, filePath, command, args, mcpServerName],
+		[env, command, args, mcpServerName],
 	);
 
 	return (

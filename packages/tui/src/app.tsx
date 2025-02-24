@@ -13,7 +13,6 @@ type AppProps = {
 	execConfig: {
 		env?: { label: string; value: string }[];
 		command: string;
-		filePath: string;
 		args: string[];
 	};
 	mcpServerName: string;
@@ -52,7 +51,6 @@ export default function App({
 					<Claude
 						command={execConfig.command}
 						args={execConfig.args}
-						filePath={execConfig.filePath}
 						env={env || {}}
 						mcpServerName={mcpServerName}
 					/>

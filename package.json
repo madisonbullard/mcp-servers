@@ -12,7 +12,6 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@dotenvx/dotenvx": "1.37.0",
 		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
 		"@types/node": "22.13.5",
