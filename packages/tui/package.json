@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/mcp-server-tui",
-	"version": "1.0.3",
+	"version": "1.0.6",
 	"license": "MIT",
 	"access": "public",
 	"type": "module",
@@ -8,7 +8,7 @@
 		"node": ">=16"
 	},
 	"scripts": {
-		"build": "rm -rf dist && tsup src/cli.tsx --dts --format esm --external which",
+		"build": "rm -rf dist && tsup src/cli.tsx --dts --format esm",
 		"postbuild": "shx chmod +x dist/cli.js",
 		"dev": "tsc --watch",
 		"typecheck": "tsc --noEmit"
