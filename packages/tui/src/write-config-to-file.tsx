@@ -98,7 +98,7 @@ export default function WriteConfigToFile<K extends string>({
 				(createIfNotExists ? (
 					<>
 						<Text>
-							Existing config not found. Creating the file at path{" "}
+							Existing {clientName} config not found. Creating the file at path{" "}
 							<Text color="yellow">{configFilePath}</Text>.
 						</Text>
 						<Newline />
