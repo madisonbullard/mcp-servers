@@ -2,9 +2,9 @@ import { TextInput } from "@inkjs/ui";
 import { Box, Newline, Text } from "ink";
 import Link from "ink-link";
 import { useState } from "react";
-import Claude from "./claude.js";
+import { type Client, clientConfigs } from "./client-configs.js";
 import SelectClient from "./select-client.js";
-import type { Client } from "./select-client.js";
+import WriteConfigToFile from "./write-config-to-file.js";
 
 type AppProps = {
 	packageName: string;
@@ -47,12 +47,18 @@ export default function App({
 	if (selectedClient && !emptyEnvValue) {
 		switch (selectedClient) {
 			case "claude":
+			case "cursor":
 				return (
-					<Claude
+					<WriteConfigToFile
 						command={execConfig.command}
 						args={execConfig.args}
 						env={env || {}}
+						configFilePath={clientConfigs[selectedClient].configFilePath}
 						mcpServerName={mcpServerName}
+						clientName={selectedClient}
+						packageName={packageName}
+						serviceNameHumanReadable={serviceNameHumanReadable}
+						createIfNotExists={["cursor"].includes(selectedClient)}
 					/>
 				);
 			default:

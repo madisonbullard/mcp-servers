@@ -1,21 +1,5 @@
 import { Select } from "@inkjs/ui";
-
-export type Client = "claude" | "cursor" | "windsurf";
-
-const clientConfigs: Record<Client, { label: string; value: string }> = {
-	claude: {
-		label: "Claude Desktop",
-		value: "claude",
-	},
-	cursor: {
-		label: "Cursor",
-		value: "cursor",
-	},
-	windsurf: {
-		label: "Windsurf",
-		value: "windsurf",
-	},
-};
+import { clientConfigs } from "./client-configs";
 
 export type Props = {
 	onChange: (value: string) => void;
