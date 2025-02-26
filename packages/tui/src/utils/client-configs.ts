@@ -12,11 +12,18 @@ export const clientConfigs = {
 			"Claude",
 			"claude_desktop_config.json",
 		),
+		createConfigFileIfNotExists: false,
+		configSupportsEnvObject: true,
+		postscript: null,
 	},
 	cursor: {
 		label: "Cursor",
 		value: "cursor",
 		configFilePath: path.join(process.cwd(), ".cursor", "mcp.json"),
+		createConfigFileIfNotExists: true,
+		configSupportsEnvObject: false,
+		postscript:
+			"To enable the MCP server, go to Settings > Cursor Settings > MCP and click 'Enable'",
 	},
 };
 

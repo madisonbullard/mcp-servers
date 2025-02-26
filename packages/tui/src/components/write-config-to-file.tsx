@@ -21,6 +21,8 @@ export default function WriteConfigToFile<K extends string>({
 	serviceNameHumanReadable,
 	createIfNotExists,
 	packageName,
+	supportsEnvObject,
+	postscript,
 }: {
 	command: string;
 	args: string[];
@@ -31,6 +33,8 @@ export default function WriteConfigToFile<K extends string>({
 	serviceNameHumanReadable: string;
 	createIfNotExists: boolean;
 	packageName: string;
+	supportsEnvObject: boolean;
+	postscript: string | null;
 }) {
 	const [newConfig, setNewConfig] = useState<McpConfig<K> | undefined>(
 		undefined,
@@ -42,10 +46,15 @@ export default function WriteConfigToFile<K extends string>({
 	useEffect(
 		function writeClaudeMCPConfig() {
 			async function createMcpConfigObject() {
+				const cmd = (await which(command)).trim();
 				return {
-					command: (await which(command)).trim(),
+					command: supportsEnvObject
+						? cmd
+						: `env ${Object.entries(env)
+								.map(([key, value]) => `${key}=${value}`)
+								.join(" ")} ${cmd}`,
 					args,
-					env,
+					...(supportsEnvObject ? { env } : {}),
 				};
 			}
 
@@ -83,7 +92,15 @@ export default function WriteConfigToFile<K extends string>({
 				}
 			});
 		},
-		[env, command, args, configFilePath, mcpServerName, createIfNotExists],
+		[
+			env,
+			command,
+			args,
+			configFilePath,
+			mcpServerName,
+			createIfNotExists,
+			supportsEnvObject,
+		],
 	);
 
 	return (
@@ -140,14 +157,15 @@ export default function WriteConfigToFile<K extends string>({
 						Wrote config to <Text color="yellow">{configFilePath}</Text>:
 					</Text>
 					<Text color="gray">{JSON.stringify(newConfig, null, 2)}</Text>
-					<Newline />
-					<Text>
-						Try passing a {serviceNameHumanReadable} link to {clientName} and
-						ask a question about the contents!
-					</Text>
+					{postscript && (
+						<>
+							<Newline />
+							<Text>{postscript}</Text>
+						</>
+					)}
 				</>
 			)}
-			<Text color="blue">Done</Text>
+			<Text color="green">Done</Text>
 		</>
 	);
 }

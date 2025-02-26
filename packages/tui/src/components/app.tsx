@@ -2,7 +2,7 @@ import { TextInput } from "@inkjs/ui";
 import { Box, Newline, Text } from "ink";
 import Link from "ink-link";
 import { useState } from "react";
-import { type Client, clientConfigs } from "./client-configs.js";
+import { type Client, clientConfigs } from "../utils/client-configs.js";
 import SelectClient from "./select-client.js";
 import WriteConfigToFile from "./write-config-to-file.js";
 
@@ -58,7 +58,13 @@ export default function App({
 						clientName={selectedClient}
 						packageName={packageName}
 						serviceNameHumanReadable={serviceNameHumanReadable}
-						createIfNotExists={["cursor"].includes(selectedClient)}
+						createIfNotExists={
+							clientConfigs[selectedClient].createConfigFileIfNotExists
+						}
+						supportsEnvObject={
+							clientConfigs[selectedClient].configSupportsEnvObject
+						}
+						postscript={clientConfigs[selectedClient].postscript}
 					/>
 				);
 			default:

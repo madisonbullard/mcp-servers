@@ -1,5 +1,5 @@
 import { Select } from "@inkjs/ui";
-import { clientConfigs } from "./client-configs";
+import { clientConfigs } from "../utils/client-configs.js";
 
 export type Props = {
 	onChange: (value: string) => void;

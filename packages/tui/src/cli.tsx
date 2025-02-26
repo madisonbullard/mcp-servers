@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { render } from "ink";
 // import meow from "meow";
-import App from "./app.js";
+import App from "./components/app.js";
 
 // const cli = meow(
 // 	`
@@ -25,13 +25,7 @@ import App from "./app.js";
 // 	},
 // );
 
-export function cli({
-	packageName,
-	serviceNameHumanReadable,
-	mcpServerName,
-	version,
-	execConfig,
-}: {
+export function cli(props: {
 	packageName: string;
 	serviceNameHumanReadable: string;
 	mcpServerName: string;
@@ -42,13 +36,5 @@ export function cli({
 		env: { label: string; value: string }[];
 	};
 }) {
-	render(
-		<App
-			packageName={packageName}
-			serviceNameHumanReadable={serviceNameHumanReadable}
-			mcpServerName={mcpServerName}
-			version={version}
-			execConfig={execConfig}
-		/>,
-	);
+	render(<App {...props} />);
 }
