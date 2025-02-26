@@ -5,7 +5,7 @@ import HandleConfigCreation, {
 	type HandleConfigCreationProps,
 } from "./handle-config-creation";
 
-export function HandleCursorConfig({
+export function HandleCursorConfig<K extends string>({
 	command,
 	args,
 	env,
@@ -17,7 +17,7 @@ export function HandleCursorConfig({
 	createIfNotExists,
 	supportsEnvObject,
 	postscript,
-}: HandleConfigCreationProps<string>) {
+}: HandleConfigCreationProps<K>) {
 	const [isThisCorrectProjectDir, setIsThisCorrectProjectDir] = useState<
 		"yes" | "no" | null
 	>(null);

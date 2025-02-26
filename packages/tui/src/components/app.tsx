@@ -3,7 +3,9 @@ import { Box, Newline, Text } from "ink";
 import Link from "ink-link";
 import { useState } from "react";
 import { type Client, clientConfigs } from "../utils/client-configs.js";
-import HandleConfigCreation from "./handle-config-creation.js";
+import HandleConfigCreation, {
+	type HandleConfigCreationProps,
+} from "./handle-config-creation.js";
 import { HandleCursorConfig } from "./handle-cursor-config.js";
 import SelectClient from "./select-client.js";
 
@@ -46,7 +48,7 @@ export default function App({
 	);
 
 	if (selectedClient && !emptyEnvValue) {
-		const configProps = {
+		const configProps: HandleConfigCreationProps<Client> = {
 			command: execConfig.command,
 			args: execConfig.args,
 			env: env || {},
