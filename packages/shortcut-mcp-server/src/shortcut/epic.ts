@@ -2,7 +2,7 @@ import type {
 	Epic,
 	RequestParams,
 	StorySlim,
-} from "@shortcut-mcp-server/shortcut-api-client";
+} from "@madisonbullard/shortcut-api-client";
 import { client } from "./client.js";
 
 export function getEpicText(epic: Epic, stories: StorySlim[]) {

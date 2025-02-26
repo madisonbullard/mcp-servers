@@ -20,8 +20,8 @@
 	"dependencies": {
 		"@modelcontextprotocol/sdk": "1.6.0",
 		"zod": "3.24.2",
-		"@madisonbullard/shortcut-api-client": "workspace:latest",
-		"@madisonbullard/mcp-server-tui": "workspace:latest"
+		"@madisonbullard/shortcut-api-client": "workspace:*",
+		"@madisonbullard/mcp-server-tui": "workspace:*"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",

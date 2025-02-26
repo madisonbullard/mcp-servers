@@ -2,7 +2,7 @@ import type {
 	Epic,
 	RequestParams,
 	Story,
-} from "@shortcut-mcp-server/shortcut-api-client";
+} from "@madisonbullard/shortcut-api-client";
 import { client } from "./client.js";
 import { getTaskText } from "./task.js";
 
