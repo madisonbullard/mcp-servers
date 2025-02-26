@@ -90,25 +90,30 @@ export default function WriteConfigToFile<K extends string>({
 					<Newline />
 				</>
 			)}
-			{(existingConfig || createIfNotExists) && (
-				<>
-					<Text>
-						<Text color="yellow">{packageName}</Text> configured & added to{" "}
-						{clientName}!
+			{(existingConfig || createIfNotExists) &&
+				(error ? (
+					<Text color="red">
+						Error writing config to {configFilePath}: {error.message}
 					</Text>
-					<Newline />
-					<Text>
-						Wrote config to <Text color="yellow">{configFilePath}</Text>:
-					</Text>
-					<Text color="gray">{JSON.stringify(newConfig, null, 2)}</Text>
-					{postscript && (
-						<>
-							<Newline />
-							<Text>{postscript}</Text>
-						</>
-					)}
-				</>
-			)}
+				) : (
+					<>
+						<Text>
+							<Text color="yellow">{packageName}</Text> configured & added to{" "}
+							{clientName}!
+						</Text>
+						<Newline />
+						<Text>
+							Wrote config to <Text color="yellow">{configFilePath}</Text>:
+						</Text>
+						<Text color="gray">{JSON.stringify(newConfig, null, 2)}</Text>
+						{postscript && (
+							<>
+								<Newline />
+								<Text>{postscript}</Text>
+							</>
+						)}
+					</>
+				))}
 			<Text color="green">Done</Text>
 		</>
 	);
