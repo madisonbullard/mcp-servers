@@ -2,6 +2,20 @@ import path from "node:path";
 import { Newline, Text } from "ink";
 import { useWriteMcpConfig } from "../hooks/mcp-config";
 
+export type HandleConfigCreationProps<K extends string> = {
+	command: string;
+	args: string[];
+	env: Record<K, string>;
+	configFilePath: string;
+	mcpServerName: string;
+	clientName: string;
+	serviceNameHumanReadable: string;
+	createIfNotExists: boolean;
+	packageName: string;
+	supportsEnvObject: boolean;
+	postscript: string | null;
+};
+
 export default function HandleConfigCreation<K extends string>({
 	env,
 	command,
@@ -14,19 +28,7 @@ export default function HandleConfigCreation<K extends string>({
 	packageName,
 	supportsEnvObject,
 	postscript,
-}: {
-	command: string;
-	args: string[];
-	env: Record<K, string>;
-	configFilePath: string;
-	mcpServerName: string;
-	clientName: string;
-	serviceNameHumanReadable: string;
-	createIfNotExists: boolean;
-	packageName: string;
-	supportsEnvObject: boolean;
-	postscript: string | null;
-}) {
+}: HandleConfigCreationProps<K>) {
 	const { newConfig, existingConfig, error } = useWriteMcpConfig({
 		env,
 		command,

@@ -4,6 +4,7 @@ import Link from "ink-link";
 import { useState } from "react";
 import { type Client, clientConfigs } from "../utils/client-configs.js";
 import HandleConfigCreation from "./handle-config-creation.js";
+import { HandleCursorConfig } from "./handle-cursor-config.js";
 import SelectClient from "./select-client.js";
 
 type AppProps = {
@@ -47,9 +48,28 @@ export default function App({
 	if (selectedClient && !emptyEnvValue) {
 		switch (selectedClient) {
 			case "claude":
-			case "cursor":
 				return (
 					<HandleConfigCreation
+						command={execConfig.command}
+						args={execConfig.args}
+						env={env || {}}
+						configFilePath={clientConfigs[selectedClient].configFilePath}
+						mcpServerName={mcpServerName}
+						clientName={selectedClient}
+						packageName={packageName}
+						serviceNameHumanReadable={serviceNameHumanReadable}
+						createIfNotExists={
+							clientConfigs[selectedClient].createConfigFileIfNotExists
+						}
+						supportsEnvObject={
+							clientConfigs[selectedClient].configSupportsEnvObject
+						}
+						postscript={clientConfigs[selectedClient].postscript}
+					/>
+				);
+			case "cursor":
+				return (
+					<HandleCursorConfig
 						command={execConfig.command}
 						args={execConfig.args}
 						env={env || {}}
