@@ -3,8 +3,8 @@ import { Box, Newline, Text } from "ink";
 import Link from "ink-link";
 import { useState } from "react";
 import { type Client, clientConfigs } from "../utils/client-configs.js";
+import HandleConfigCreation from "./handle-config-creation.js";
 import SelectClient from "./select-client.js";
-import WriteConfigToFile from "./write-config-to-file.js";
 
 type AppProps = {
 	packageName: string;
@@ -49,7 +49,7 @@ export default function App({
 			case "claude":
 			case "cursor":
 				return (
-					<WriteConfigToFile
+					<HandleConfigCreation
 						command={execConfig.command}
 						args={execConfig.args}
 						env={env || {}}

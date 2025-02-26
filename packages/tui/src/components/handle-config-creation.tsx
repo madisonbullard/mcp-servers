@@ -1,18 +1,8 @@
-import fs from "node:fs";
 import path from "node:path";
 import { Newline, Text } from "ink";
-import { useEffect, useState } from "react";
-import which from "which";
 import { useWriteMcpConfig } from "../hooks/mcp-config";
 
-type McpConfig<K extends string> = {
-	mcpServers: Record<
-		string,
-		{ command: string; args: string[]; env?: Record<K, string> }
-	>;
-};
-
-export default function WriteConfigToFile<K extends string>({
+export default function HandleConfigCreation<K extends string>({
 	env,
 	command,
 	args,
