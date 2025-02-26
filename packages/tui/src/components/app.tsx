@@ -46,47 +46,26 @@ export default function App({
 	);
 
 	if (selectedClient && !emptyEnvValue) {
+		const configProps = {
+			command: execConfig.command,
+			args: execConfig.args,
+			env: env || {},
+			configFilePath: clientConfigs[selectedClient].configFilePath,
+			mcpServerName,
+			clientName: selectedClient,
+			packageName,
+			serviceNameHumanReadable,
+			createIfNotExists:
+				clientConfigs[selectedClient].createConfigFileIfNotExists,
+			supportsEnvObject: clientConfigs[selectedClient].configSupportsEnvObject,
+			postscript: clientConfigs[selectedClient].postscript,
+		};
+
 		switch (selectedClient) {
 			case "claude":
-				return (
-					<HandleConfigCreation
-						command={execConfig.command}
-						args={execConfig.args}
-						env={env || {}}
-						configFilePath={clientConfigs[selectedClient].configFilePath}
-						mcpServerName={mcpServerName}
-						clientName={selectedClient}
-						packageName={packageName}
-						serviceNameHumanReadable={serviceNameHumanReadable}
-						createIfNotExists={
-							clientConfigs[selectedClient].createConfigFileIfNotExists
-						}
-						supportsEnvObject={
-							clientConfigs[selectedClient].configSupportsEnvObject
-						}
-						postscript={clientConfigs[selectedClient].postscript}
-					/>
-				);
+				return <HandleConfigCreation {...configProps} />;
 			case "cursor":
-				return (
-					<HandleCursorConfig
-						command={execConfig.command}
-						args={execConfig.args}
-						env={env || {}}
-						configFilePath={clientConfigs[selectedClient].configFilePath}
-						mcpServerName={mcpServerName}
-						clientName={selectedClient}
-						packageName={packageName}
-						serviceNameHumanReadable={serviceNameHumanReadable}
-						createIfNotExists={
-							clientConfigs[selectedClient].createConfigFileIfNotExists
-						}
-						supportsEnvObject={
-							clientConfigs[selectedClient].configSupportsEnvObject
-						}
-						postscript={clientConfigs[selectedClient].postscript}
-					/>
-				);
+				return <HandleCursorConfig {...configProps} />;
 			default:
 				return null;
 		}
