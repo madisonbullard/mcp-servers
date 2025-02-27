@@ -25,6 +25,19 @@ export const clientConfigs = {
 		postscript:
 			"To enable the MCP server, go to Settings > Cursor Settings > MCP and click 'Enable'",
 	},
+	windsurf: {
+		label: "Windsurf",
+		value: "windsurf",
+		configFilePath: path.join(
+			os.homedir(),
+			".codeium",
+			"windsurf",
+			"mcp_config.json",
+		),
+		createConfigFileIfNotExists: false,
+		configSupportsEnvObject: true,
+		postscript: null,
+	},
 };
 
 export type Client = keyof typeof clientConfigs;

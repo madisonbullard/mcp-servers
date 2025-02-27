@@ -65,6 +65,7 @@ export default function App({
 
 		switch (selectedClient) {
 			case "claude":
+			case "windsurf":
 				return <HandleConfigCreation {...configProps} />;
 			case "cursor":
 				return <HandleCursorConfig {...configProps} />;
