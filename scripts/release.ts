@@ -177,17 +177,6 @@ async function run() {
 			console.info("Next:", version, "\n");
 		}
 
-		console.info("install and build");
-
-		if (!rePublish && !finish) {
-			await spawnify(`bun install`);
-		}
-
-		if (!skipBuild && !finish) {
-			await spawnify(`bun run build`);
-			await checkDistDirs();
-		}
-
 		if (!finish) {
 			console.info("run checks");
 			if (!skipTest) {
@@ -231,6 +220,17 @@ async function run() {
 					await fs.writeJSON(path, next, { spaces: 2 });
 				}),
 			);
+		}
+
+		console.info("install and build");
+
+		if (!rePublish && !finish) {
+			await spawnify(`rm -rf bun.lock && bun install`);
+		}
+
+		if (!skipBuild && !finish) {
+			await spawnify(`bun run build`);
+			await checkDistDirs();
 		}
 
 		if (!finish && dryRun) {
