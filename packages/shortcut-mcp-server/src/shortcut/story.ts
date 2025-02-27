@@ -19,7 +19,9 @@ export function getStoryText(story: Story, epic: Epic | undefined) {
 			(a, b) =>
 				new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
 		)
-		.map((comment) => `${comment.text}`);
+		.map(
+			(comment) => `${comment.text?.replace(/\(shortcutapp:\/\/[^)]+\)/g, "")}`,
+		);
 
 	return `Story ${story.id}
 [Name] ${story.name}
@@ -40,7 +42,8 @@ ${storyLinks.length ? `[Story relationships]` : ""}
 ${storyLinks.join("\n")}
 
 ${story.comments.length ? `[Comments]` : ""}
-${comments.join("\n")}`;
+
+${comments.join("\n\n")}`;
 }
 
 export async function getStory(storyId: number, params?: RequestParams) {
