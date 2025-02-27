@@ -13,6 +13,14 @@ export function getStoryText(story: Story, epic: Epic | undefined) {
 		getStoryLinkText(link, story.id),
 	);
 
+	const comments = story.comments
+		.filter((c) => !c.deleted)
+		.toSorted(
+			(a, b) =>
+				new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+		)
+		.map((comment) => `${comment.text}`);
+
 	return `Story ${story.id}
 [Name] ${story.name}
 [Type] ${story.story_type}
@@ -29,7 +37,10 @@ ${story.external_links.length ? `[External Links]` : ""}
 ${story.external_links.join("\n")}
 
 ${storyLinks.length ? `[Story relationships]` : ""}
-${storyLinks.join("\n")}`;
+${storyLinks.join("\n")}
+
+${story.comments.length ? `[Comments]` : ""}
+${comments.join("\n")}`;
 }
 
 export async function getStory(storyId: number, params?: RequestParams) {
