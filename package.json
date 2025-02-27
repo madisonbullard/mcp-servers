@@ -7,7 +7,7 @@
 	"scripts": {
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
-		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
+		"typecheck": "bun --filter=* typecheck",
 		"build": "scripts/build.sh",
 		"release": "tsx ./scripts/release.ts"
 	},
