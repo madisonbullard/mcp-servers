@@ -10,8 +10,6 @@ import { spawnify } from "./spawnify";
 // avoid emitter error
 process.setMaxListeners(0);
 
-// --resume would be cool here where it stores the last failed step somewhere and tries resuming
-
 const exec = promisify(proc.exec);
 export const spawn = proc.spawn;
 
@@ -35,7 +33,6 @@ const skipTest =
 	process.argv.includes("--skip-tests");
 const skipBuild = finish || rePublish || process.argv.includes("--skip-build");
 const dryRun = process.argv.includes("--dry-run");
-const tamaguiGitUser = process.argv.includes("--tamagui-git-user");
 const isCI = finish || process.argv.includes("--ci");
 
 const curVersion = fs.readJSONSync("./packages/one/package.json").version;
@@ -171,12 +168,6 @@ async function run() {
 						process.exit(1);
 					}
 				}),
-			);
-		}
-		if (tamaguiGitUser) {
-			await spawnify(`git config --global user.name 'Tamagui'`);
-			await spawnify(
-				`git config --global user.email 'tamagui@users.noreply.github.com`,
 			);
 		}
 
