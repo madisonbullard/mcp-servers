@@ -2,7 +2,6 @@ import type {
 	Epic,
 	RequestParams,
 	Story,
-	StoryLink,
 	TypedStoryLink,
 } from "@madisonbullard/shortcut-api-client";
 import { client } from "./client.js";
@@ -42,8 +41,6 @@ export async function getStory(storyId: number, params?: RequestParams) {
 function getStoryLinkText(link: TypedStoryLink, storyId: number) {
 	const isSubject = link.subject_id === storyId;
 	return `${
-		isSubject
-			? "This story"
-			: `Story ID ${storyId} (${link.subject_workflow_state_id})`
+		isSubject ? "This story" : `Story ID ${storyId}`
 	} ${link.verb} ${isSubject ? `story ID ${link.subject_id}` : "this story"}`;
 }
