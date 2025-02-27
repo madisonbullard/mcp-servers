@@ -2,7 +2,7 @@ import * as proc from "node:child_process";
 import path from "node:path";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import fs, { ensureDir, writeJSON } from "fs-extra";
+import fs from "fs-extra";
 import pMap from "p-map";
 import prompts from "prompts";
 import { spawnify } from "./spawnify";
@@ -35,7 +35,7 @@ const skipBuild = finish || rePublish || process.argv.includes("--skip-build");
 const dryRun = process.argv.includes("--dry-run");
 const isCI = finish || process.argv.includes("--ci");
 
-const curVersion = fs.readJSONSync("./packages/one/package.json").version;
+const curVersion = fs.readJSONSync("./package.json").version;
 
 const nextVersion = (() => {
 	if (canary) {
@@ -67,16 +67,6 @@ if (!skipVersion) {
 	console.info(`Releasing ${curVersion}`);
 }
 
-async function upgradeReproApp(newVersion: string) {
-	const pkgJsonPath = path.join(process.cwd(), "repro", "package.json");
-
-	const pkgJson = await fs.readJSON(pkgJsonPath);
-	pkgJson.version = newVersion;
-	pkgJson.dependencies.one = newVersion;
-
-	await writeJSON(pkgJsonPath, pkgJson, { spaces: 2 });
-}
-
 async function run() {
 	try {
 		let version = curVersion;
@@ -94,10 +84,33 @@ async function run() {
 			}
 		}
 
-		const workspaces = (await exec(`yarn workspaces list --json`)).stdout
-			.trim()
-			.split("\n");
-		const packagePaths = workspaces.map((p) => JSON.parse(p)) as {
+		// Create a function to safely get package info
+		const getPackageInfo = async () => {
+			const packageFiles = (
+				await exec(`find ./packages -name package.json`)
+			).stdout
+				.trim()
+				.split("\n")
+				.filter(Boolean);
+
+			return Promise.all(
+				packageFiles.map(async (filePath) => {
+					try {
+						const packageJson = await fs.readJSON(filePath);
+						const location = path.dirname(filePath);
+						return JSON.stringify({ name: packageJson.name, location });
+					} catch (error) {
+						console.error(`Error reading ${filePath}:`, error);
+						return null;
+					}
+				}),
+			).then((results) =>
+				results.filter((result): result is string => result !== null),
+			);
+		};
+
+		const workspacesArray = await getPackageInfo();
+		const packagePaths = workspacesArray.map((p) => JSON.parse(p)) as {
 			name: string;
 			location: string;
 		}[];
@@ -105,7 +118,7 @@ async function run() {
 		const allPackageJsons = (
 			await Promise.all(
 				packagePaths
-					.filter((i) => i.location !== "." && !i.name.startsWith("@takeout"))
+					.filter((i) => i.location !== ".")
 					.flatMap(async ({ name, location }) => {
 						const cwd = path.join(process.cwd(), location);
 						const json = await fs.readJSON(path.join(cwd, "package.json"));
@@ -117,20 +130,6 @@ async function run() {
 							directory: location,
 						};
 
-						if (json.alsoPublishAs) {
-							console.info(
-								` ${name}: Also publishing as ${json.alsoPublishAs.join(", ")}`,
-							);
-							return [
-								item,
-								...json.alsoPublishAs.map((name: string) => ({
-									...item,
-									json: { ...json, name },
-									name,
-								})),
-							];
-						}
-
 						return [item];
 					}),
 			)
@@ -138,17 +137,9 @@ async function run() {
 			.flat()
 			.filter((x) => !x.json.skipPublish);
 
-		const packageJsons = allPackageJsons
-			.filter((x) => {
-				return !x.json.private;
-			})
-			// slow things last
-			.sort((a, b) => {
-				if (a.name.includes("font-") || a.name.includes("-icons")) {
-					return 1;
-				}
-				return -1;
-			});
+		const packageJsons = allPackageJsons.filter((x) => {
+			return !x.json.private;
+		});
 
 		if (!finish) {
 			console.info(
@@ -189,22 +180,20 @@ async function run() {
 		console.info("install and build");
 
 		if (!rePublish && !finish) {
-			await spawnify(`yarn install`);
+			await spawnify(`bun install`);
 		}
 
 		if (!skipBuild && !finish) {
-			// lets do a full clean and build:force, to ensure we dont have weird cached or leftover files
-			await spawnify(`yarn clean:build`);
-			await spawnify(`yarn build --force`);
+			await spawnify(`bun build`);
 			await checkDistDirs();
 		}
 
 		if (!finish) {
 			console.info("run checks");
 			if (!skipTest) {
-				await spawnify(`yarn lint`);
-				await spawnify(`yarn check`);
-				await spawnify(`yarn test`);
+				await spawnify(`bun fix`);
+				await spawnify(`bun check`);
+				await spawnify(`bun typecheck`);
 			}
 		}
 
@@ -239,11 +228,9 @@ async function run() {
 						}
 					}
 
-					await writeJSON(path, next, { spaces: 2 });
+					await fs.writeJSON(path, next, { spaces: 2 });
 				}),
 			);
-
-			await upgradeReproApp(version);
 		}
 
 		if (!finish && dryRun) {
@@ -284,9 +271,6 @@ async function run() {
 		}
 
 		if (!finish) {
-			const tmpDir = `/tmp/one-publish`;
-			await ensureDir(tmpDir);
-
 			// if all successful, re-tag as latest
 			await pMap(
 				packageJsons,
@@ -295,15 +279,9 @@ async function run() {
 						.filter(Boolean)
 						.join(" ");
 
-					const absolutePath = `${tmpDir}/${name.replace("/", "_")}-package.tmp.tgz`;
-					await spawnify(`yarn pack --out ${absolutePath}`, {
-						cwd,
-						avoidLog: true,
-					});
-
 					const publishCommand = [
-						"npm publish",
-						absolutePath, // produced by `yarn pack`
+						"bun publish",
+						`--access public`,
 						publishOptions,
 					]
 						.filter(Boolean)
@@ -312,7 +290,7 @@ async function run() {
 					console.info(`Publishing ${name}: ${publishCommand}`);
 
 					await spawnify(publishCommand, {
-						cwd: tmpDir,
+						cwd,
 					}).catch((err) => console.error(err));
 				},
 				{
@@ -326,7 +304,7 @@ async function run() {
 		if (!skipFinish) {
 			// then git tag, commit, push
 			if (!finish) {
-				await spawnify(`yarn install`);
+				await spawnify(`bun install`);
 			}
 
 			const tagPrefix = canary ? "canary" : "v";
@@ -357,21 +335,6 @@ async function run() {
 					console.info(`✅ Pushed and versioned\n`);
 				}
 			}
-
-			// console.info(`All done, cleanup up in...`)
-			// await sleep(2 * 1000)
-			// // then remove old prepub tag
-			// await pMap(
-			//   packageJsons,
-			//   async ({ name, cwd }) => {
-			//     await spawnify(`npm dist-tag remove ${name}@${version} prepub`, {
-			//       cwd,
-			//     }).catch((err) => console.error(err))
-			//   },
-			//   {
-			//     concurrency: 20,
-			//   }
-			// )
 		}
 
 		console.info(`✅ Done\n`);
