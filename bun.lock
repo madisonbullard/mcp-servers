@@ -19,7 +19,7 @@
     },
     "packages/shortcut-api-client": {
       "name": "@madisonbullard/shortcut-api-client",
-      "version": "1.2.1",
+      "version": "1.2.0",
       "devDependencies": {
         "shx": "0.3.4",
         "tsup": "8.4.0",
@@ -27,13 +27,13 @@
     },
     "packages/shortcut-mcp-server": {
       "name": "@madisonbullard/shortcut-mcp-server",
-      "version": "1.2.1",
+      "version": "1.2.0",
       "bin": {
         "shortcut-mcp-server": "dist/index.js"
       },
       "dependencies": {
-        "@madisonbullard/mcp-server-tui": "workspace:1.2.1",
-        "@madisonbullard/shortcut-api-client": "workspace:1.2.1",
+        "@madisonbullard/mcp-server-tui": "workspace:*",
+        "@madisonbullard/shortcut-api-client": "workspace:*",
         "@modelcontextprotocol/sdk": "1.6.0",
         "zod": "3.24.2",
       },
@@ -44,7 +44,7 @@
     },
     "packages/tui": {
       "name": "@madisonbullard/mcp-server-tui",
-      "version": "1.2.1",
+      "version": "1.2.0",
       "dependencies": {
         "@inkjs/ui": "2.0.0",
         "ink": "5.1.0",
