@@ -184,7 +184,7 @@ async function run() {
 		}
 
 		if (!skipBuild && !finish) {
-			await spawnify(`bun build`);
+			await spawnify(`bun run build`);
 			await checkDistDirs();
 		}
 
