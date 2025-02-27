@@ -239,6 +239,7 @@ async function run() {
 		}
 
 		if (!finish && !rePublish) {
+			await spawnify(`bun fix`);
 			await spawnify(`git diff`);
 		}
 
