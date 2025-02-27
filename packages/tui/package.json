@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/mcp-server-tui",
-	"version": "1.0.10",
+	"version": "1.1.0",
 	"license": "MIT",
 	"access": "public",
 	"type": "module",
