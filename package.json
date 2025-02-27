@@ -9,13 +9,19 @@
 		"fix": "bun check --write ./",
 		"typecheck": "bun --elide-lines 0 --filter=* typecheck",
 		"build:shortcut": "scripts/build-shortcut.sh",
-		"publish:shortcut": "bun publish --cwd packages/shortcut-api-client --access public && bun publish --cwd packages/shortcut-mcp-server --access public && bun publish --cwd packages/tui --access public"
+		"release": "tsx ./scripts/release.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
+		"@types/fs-extra": "11.0.4",
 		"@types/node": "22.13.5",
+		"@types/prompts": "2.4.9",
+		"fs-extra": "11.3.0",
+		"p-map": "7.0.3",
+		"prompts": "2.4.2",
+		"tsx": "4.19.3",
 		"typescript": "5.7.3"
 	}
 }

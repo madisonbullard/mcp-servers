@@ -78,7 +78,7 @@ export default function App({
 		<>
 			<Box
 				padding={1}
-				width="40"
+				width="80"
 				flexDirection="column"
 				borderStyle="round"
 				borderColor="blue"
