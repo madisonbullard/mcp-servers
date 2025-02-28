@@ -35,6 +35,7 @@ export function cli(props: {
 		args: string[];
 		env: { label: string; value: string }[];
 	};
+	moreInfoLink: string;
 }) {
 	render(<App {...props} />);
 }

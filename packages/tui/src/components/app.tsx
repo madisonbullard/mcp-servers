@@ -19,6 +19,7 @@ type AppProps = {
 		args: string[];
 	};
 	mcpServerName: string;
+	moreInfoLink: string;
 };
 
 export default function App({
@@ -27,6 +28,7 @@ export default function App({
 	version,
 	execConfig,
 	mcpServerName,
+	moreInfoLink,
 }: AppProps) {
 	const initialEnv = execConfig.env?.reduce(
 		(acc: Record<string, string>, e) => {
@@ -95,12 +97,9 @@ export default function App({
 				<Newline />
 				<Text>
 					📚 For more information, visit{" "}
-					<Link
-						fallback={false}
-						url="https://github.com/madisonbullard/mcp-servers"
-					>
+					<Link fallback={false} url={moreInfoLink}>
 						<Text color="blue" underline>
-							https://github.com/madisonbullard/mcp-servers
+							{moreInfoLink}
 						</Text>
 					</Link>
 				</Text>

@@ -19,4 +19,5 @@ cli({
 			},
 		],
 	},
+	moreInfoLink: "https://github.com/madisonbullard/mcp-servers",
 });
