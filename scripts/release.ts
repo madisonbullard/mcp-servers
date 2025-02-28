@@ -49,7 +49,7 @@ const nextVersion = (() => {
 	let plusVersion = skipVersion ? 0 : 1;
 	const patchAndCanary = curVersion.split(".")[2];
 	const [patch, lastCanary] = patchAndCanary.split("-");
-	// if were publishing another canary no bump version
+	// if we're publishing another canary no bump version
 	if (lastCanary && canary) {
 		plusVersion = 0;
 	}
@@ -93,63 +93,52 @@ async function run() {
 				.split("\n")
 				.filter(Boolean);
 
-			return Promise.all(
+			const results = await Promise.all(
 				packageFiles.map(async (filePath) => {
 					try {
 						const packageJson = await fs.readJSON(filePath);
 						const location = path.dirname(filePath);
-						return JSON.stringify({ name: packageJson.name, location });
+						return { name: packageJson.name, location };
 					} catch (error) {
 						console.error(`Error reading ${filePath}:`, error);
 						return null;
 					}
 				}),
-			).then((results) =>
-				results.filter((result): result is string => result !== null),
 			);
+
+			return await results
+				.filter(
+					(i): i is { name: string; location: string } =>
+						!!i && i.location !== ".",
+				)
+				.map(async ({ name, location }) => {
+					const cwd = path.join(process.cwd(), location);
+					const json = await fs.readJSON(path.join(cwd, "package.json"));
+					const item = {
+						name,
+						cwd,
+						json,
+						path: path.join(cwd, "package.json"),
+						directory: location,
+					};
+
+					return item;
+				});
 		};
 
-		const workspacesArray = await getPackageInfo();
-		const packagePaths = workspacesArray.map((p) => JSON.parse(p)) as {
-			name: string;
-			location: string;
-		}[];
-
-		const allPackageJsons = (
-			await Promise.all(
-				packagePaths
-					.filter((i) => i.location !== ".")
-					.flatMap(async ({ name, location }) => {
-						const cwd = path.join(process.cwd(), location);
-						const json = await fs.readJSON(path.join(cwd, "package.json"));
-						const item = {
-							name,
-							cwd,
-							json,
-							path: path.join(cwd, "package.json"),
-							directory: location,
-						};
-
-						return [item];
-					}),
-			)
-		)
-			.flat()
-			.filter((x) => !x.json.skipPublish);
-
-		const packageJsons = allPackageJsons.filter((x) => {
-			return !x.json.private;
-		});
+		const packages = (await Promise.all(await getPackageInfo())).filter(
+			(x) => !x.json.skipPublish && !x.json.private,
+		);
 
 		if (!finish) {
 			console.info(
-				`Publishing in order:\n\n${packageJsons.map((x) => x.name).join("\n")}`,
+				`Publishing in order:\n\n${packages.map((x) => x.name).join("\n")}`,
 			);
 		}
 
 		async function checkDistDirs() {
 			await Promise.all(
-				packageJsons.map(async ({ cwd, json }) => {
+				packages.map(async ({ cwd, json }) => {
 					const distDir = join(cwd, "dist");
 					if (!json.scripts || json.scripts.build === "true") {
 						return;
@@ -195,10 +184,12 @@ async function run() {
 
 		if (!skipVersion && !finish) {
 			await Promise.all(
-				allPackageJsons.map(async ({ json, path }) => {
+				packages.map(async ({ json, path, cwd }) => {
 					const next = { ...json };
 
 					next.version = version;
+
+					const packagesToUpdate = [];
 
 					for (const field of [
 						"dependencies",
@@ -210,22 +201,28 @@ async function run() {
 						if (!nextDeps) continue;
 						for (const depName in nextDeps) {
 							if (!nextDeps[depName].startsWith("workspace:")) {
-								if (allPackageJsons.some((p) => p.name === depName)) {
+								if (packages.some((p) => p.name === depName)) {
 									nextDeps[depName] = version;
 								}
+							} else {
+								packagesToUpdate.push(depName);
 							}
 						}
 					}
 
 					await fs.writeJSON(path, next, { spaces: 2 });
+					packagesToUpdate.length &&
+						(await spawnify(`bun update ${packagesToUpdate.join(" ")}`, {
+							cwd,
+						}));
 				}),
 			);
 		}
 
 		console.info("install and build");
 
-		if (!rePublish && !finish) {
-			await spawnify(`rm -rf bun.lock && bun install`);
+		if (!finish) {
+			await spawnify(`bun install`);
 		}
 
 		if (!skipBuild && !finish) {
@@ -274,7 +271,7 @@ async function run() {
 		if (!finish) {
 			// if all successful, re-tag as latest
 			await pMap(
-				packageJsons,
+				packages,
 				async ({ name, cwd }) => {
 					const publishOptions = [canary && `--tag canary`]
 						.filter(Boolean)
@@ -304,9 +301,6 @@ async function run() {
 
 		if (!skipFinish) {
 			// then git tag, commit, push
-			if (!finish) {
-				await spawnify(`bun install`);
-			}
 
 			const tagPrefix = canary ? "canary" : "v";
 			const gitTag = `${tagPrefix}${version}`;
