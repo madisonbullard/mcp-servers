@@ -68,6 +68,12 @@ export default function HandleConfigCreation<K extends string>({
 							{JSON.stringify(newConfig, null, 2)}
 						</Text>
 						<Newline />
+						<Text>
+							If you copy/paste the above config, make sure to format the pasted
+							content correctly (remove any unnecessary line breaks) so $
+							{clientName} can read the JSON file.
+						</Text>
+						<Newline />
 					</>
 				))}
 			{mcpServerName in (existingConfig?.mcpServers || {}) && (
