@@ -35,7 +35,7 @@ const skipBuild = finish || rePublish || process.argv.includes("--skip-build");
 const dryRun = process.argv.includes("--dry-run");
 const isCI = finish || process.argv.includes("--ci");
 
-const curVersion = fs.readJSONSync("./package.json").version;
+const curVersion = fs.readJSONSync("./packages/tui/package.json").version;
 
 const nextVersion = (() => {
 	if (canary) {
