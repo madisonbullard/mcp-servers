@@ -19,7 +19,7 @@ bun install
 
 - Build the MCP server and CLI of the server you want to develop:
 ```bash
-bun run build:{SERVER_NAME} # e.g. bun run build:shortcut
+bun run build
 ```
 - This will create a `dist` folder in each package folder required for the server you want to develop.
 
