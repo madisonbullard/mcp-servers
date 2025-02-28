@@ -107,10 +107,7 @@ async function run() {
 			);
 
 			return await results
-				.filter(
-					(i): i is { name: string; location: string } =>
-						!!i && i.location !== ".",
-				)
+				.filter((i): i is { name: string; location: string } => !!i)
 				.map(async ({ name, location }) => {
 					const cwd = path.join(process.cwd(), location);
 					const json = await fs.readJSON(path.join(cwd, "package.json"));
