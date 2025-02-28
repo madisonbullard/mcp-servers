@@ -6,6 +6,11 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { version } from "../package.json";
 import { getEpic, getEpicStories, getEpicText } from "./shortcut/epic.js";
+import {
+	getObjective,
+	getObjectiveEpics,
+	getObjectiveText,
+} from "./shortcut/objective";
 import { getStory, getStoryText } from "./shortcut/story.js";
 import { log } from "./utils/log.js";
 
@@ -88,6 +93,45 @@ server.tool(
 		const stories = storiesRes.data;
 
 		const text = getEpicText(epic, stories);
+
+		return {
+			content: [
+				{
+					type: "text",
+					text,
+				},
+			],
+		};
+	},
+);
+
+server.tool(
+	"get-objective",
+	"Get a Shortcut Objective by ID",
+	{
+		objectiveID: z.number().describe("The ID of the Objective to get"),
+	},
+	async ({ objectiveID }) => {
+		const res = await getObjective(objectiveID);
+
+		if (!res.ok || res.error) {
+			return {
+				content: [
+					{
+						type: "text",
+						text: `Failed to retrieve Shortcut Objective with ID ${objectiveID}: ${res.status} error.`,
+					},
+				],
+			};
+		}
+
+		const objective = res.data;
+
+		const epicsRes = await getObjectiveEpics(objective.id);
+
+		const epics = epicsRes.data;
+
+		const text = getObjectiveText(objective, epics);
 
 		return {
 			content: [
