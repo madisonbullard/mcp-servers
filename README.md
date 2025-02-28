@@ -5,10 +5,10 @@ A monorepo containing [Model Context Protocol](https://modelcontextprotocol.io/)
 - [Shortcut](https://www.shortcut.com/) MCP server
   - `npx @madisonbullard/shortcut-mcp-server`
 
-## Monorepo Structure
-- `shortcut-api-client`: A client for the Shortcut API
-- `shortcut-mcp-server`: An MCP server for Shortcut
-- `tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
+## Packages
+- `@madisonbullard/shortcut-api-client`: A client for the Shortcut API
+- `@madisonbullard/shortcut-mcp-server`: An MCP server for Shortcut
+- `@madisonbullard/mcp-server-tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
 
 ## Development
 
