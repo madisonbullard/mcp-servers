@@ -14,7 +14,7 @@ export function getObjectiveText(objective: Objective, epics: EpicSlim[]) {
 [Description] ${objective.description}
 
 ${epics.length ? `[Epics]` : ""}
-${epics.map((epic) => `[Epic ${epic.id} - ${epic.completed ? "Completed" : "Incomplete"}] ${epic.name}: ${epic.description}`).join("\n")}`;
+${epics.map((epic) => `[Epic ${epic.id} - ${epic.state}] ${epic.name}: ${epic.description}`).join("\n\n")}`;
 }
 
 export async function getObjective(

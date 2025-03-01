@@ -8,7 +8,7 @@ import { client } from "./client.js";
 export function getEpicText(epic: Epic, stories: StorySlim[]) {
 	return `Epic ${epic.id}
 [Name] ${epic.name}
-[Completed] ${epic.completed ? "Yes" : "No"}
+[State] ${epic.state}
 [Archived] ${epic.archived ? "Yes" : "No"}
 
 [Description] ${epic.description}
