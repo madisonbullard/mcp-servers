@@ -30,6 +30,11 @@ export async function getStory(storyId: number, params?: RequestParams) {
 bun install
 ```
 
+- Generate the API client:
+```bash
+bun generate-api-client
+```
+
 - Build the MCP server and CLI:
 ```bash
 bun run build
