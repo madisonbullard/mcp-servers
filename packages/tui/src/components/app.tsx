@@ -9,16 +9,48 @@ import HandleConfigCreation, {
 import { HandleCursorConfig } from "./handle-cursor-config.js";
 import SelectClient from "./select-client.js";
 
-type AppProps = {
+export type AppProps = {
+	/**
+	 * The name of the package housing your mcp server
+	 * (You could import this from package.json "name" property)
+	 */
 	packageName: string;
+	/**
+	 * The name by which to identify your MCP server to the client
+	 */
 	serviceNameHumanReadable: string;
+	/**
+	 * The version of the package housing your mcp server
+	 */
 	version: string;
+	/**
+	 * The configuration for how to execute your mcp server
+	 */
 	execConfig: {
-		env?: { label: string; value: string }[];
+		/**
+		 * This package will resolve the user's absolute path
+		 * to the module referenced here, using `which()`.
+		 * e.g. "node" will resolve to `/user/path/to/node`
+		 */
 		command: string;
+		/**
+		 * The script to execute, and any additional arguments passed to the script.
+		 * The file path should reference a `.js` file even if you're writing TS source.
+		 */
 		args: string[];
+		/**
+		 * An optional config for any environment variables to prompt the user for.
+		 * A list of { label: string; value: string };
+		 */
+		env?: { label: string; value: string }[];
 	};
+	/**
+	 * The namespace of your MCP server for reference by the client
+	 */
 	mcpServerName: string;
+	/**
+	 * A link to more information about your MCP server
+	 */
 	moreInfoLink: string;
 };
 

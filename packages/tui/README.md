@@ -13,7 +13,9 @@ Here is an example the TUI in action, used to install [`@madisonbullard/shortcut
 Please feel free to add PRs for wider support!
 
 ## Usage
-`npm install @madisonbullard/mcp-server-tui`
+- `npm install @madisonbullard/mcp-server-tui`
+- See `@madisonbullard/shortcut-mcp-server`'s [`package.json`](./packages/shortcut-mcp-server/package.json) and [`tsconfig.json`](./packages/shortcut-mcp-server/tsconfig.json) for examples to mimic in order to successfully publish to npm or your package manager of choice.
+- Implement the `cli` function below according to the type definitions.
 
 ```ts
 import { fileURLToPath } from "node:url";
@@ -72,7 +74,6 @@ cli({
 ```
 
 ### Publishing your MCP server
-- See `@madisonbullard/shortcut-mcp-server`'s [`package.json`](./packages/shortcut-mcp-server/package.json) and [`tsconfig.json`](./packages/shortcut-mcp-server/tsconfig.json) for examples to mimic in order to successfully publish to npm or your package manager of choice.
 - `bun run build` or npm/Yarn/pnpm equivalent
 - `bun publish --access public` or npm/Yarn/pnpm equivalent
 
