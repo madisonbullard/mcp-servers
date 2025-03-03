@@ -9,6 +9,7 @@ Here is an example the TUI in action, used to install [`@madisonbullard/shortcut
 - [Claude Desktop](https://claude.ai/download)
 - [Cursor](https://cursor.sh/)
 - [Windsurf](https://codeium.com/windsurf)
+
 Please feel free to add PRs for wider support!
 
 ## Usage
