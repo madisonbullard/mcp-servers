@@ -22,7 +22,8 @@ import { name, version } from "../package.json";
 
 cli({
 	/**
-	 * The name of the package housing your mcp server (You could import this from package.json "name" property)
+	 * The name of the package housing your mcp server
+	 * (You could import this from package.json "name" property)
 	 */
 	packageName: name,
 	/**
