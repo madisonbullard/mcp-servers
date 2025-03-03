@@ -81,3 +81,6 @@ cli({
 - Pull down this repo
 - `bun install`
 - `bun run build` will create a `dist` folder containing `cli.js`, which can be used as described above.
+
+## Credit
+Inspired by the TUI installation experience from Cloudflare's [`mcp-server-cloudflare`](https://github.com/cloudflare/mcp-server-cloudflare).
