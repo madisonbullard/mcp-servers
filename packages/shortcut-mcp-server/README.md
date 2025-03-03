@@ -16,6 +16,7 @@ bun install
 bun run build
 ```
 - This will create a `dist` folder.
+- You can use `bun run build:watch` to watch for changes and automatically rebuild.
 
 - Run the CLI
 ```bash

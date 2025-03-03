@@ -1,14 +1,16 @@
 # @madisonbullard/mcp-servers
-A monorepo containing [Model Context Protocol](https://modelcontextprotocol.io/) servers for various use cases.
+A monorepo containing a TUI ([`@madisonbullard/mcp-server-tui`](./packages/tui/)) to aid in the installation of [Model Context Protocol](https://modelcontextprotocol.io/) servers. Bring your own MCP server and publish it to NPM or your JS package manager of choice in minutes.
 
-## Installing MCP Servers
-- [Shortcut](https://www.shortcut.com/) MCP server
-  - `npx @madisonbullard/shortcut-mcp-server`
+Here is an example the TUI in action, used to install [`@madisonbullard/shortcut-mcp-server`](./packages/shortcut-mcp-server/README.md):
+
+![A terminal window running an example of this TUI](./packages/tui/screenshots/shortcut-mcp-server.png)
+
+It also contains MCP servers for various use cases, all installed via the TUI.
 
 ## Packages
-- `@madisonbullard/shortcut-api-client`: A client for the Shortcut API
-- `@madisonbullard/shortcut-mcp-server`: An MCP server for Shortcut
 - `@madisonbullard/mcp-server-tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
+- `@madisonbullard/shortcut-mcp-server`: An MCP server for Shortcut
+- `@madisonbullard/shortcut-api-client`: A client for the Shortcut API
 
 ## Development
 
