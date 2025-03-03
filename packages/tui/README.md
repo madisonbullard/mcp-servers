@@ -46,7 +46,8 @@ cli({
 	 */
 	execConfig: {
 		/**
-		 * This package will resolve the user's absolute path to the module referenced here, using `which()`.
+		 * This package will resolve the user's absolute path 
+		 * to the module referenced here, using `which()`.
 		 * e.g. "node" will resolve to `/user/path/to/node`
 		 */
 		command: "node",
@@ -56,13 +57,11 @@ cli({
 		 */
 		args: [fileURLToPath(new URL("./path/to/mcp/server.js", import.meta.url))],
 		/**
-		 * An optional config for any environment variables to prompt the user for. A list of { label: string; value: string };
+		 * An optional config for any environment variables to prompt the user for.
+		 * A list of { label: string; value: string };
 		 */
 		env: [
 			{
-				/**
-				 * Shortcut API token
-				 */
 				label: "Shortcut API token",
 				value: "SHORTCUT_API_TOKEN",
 			},
