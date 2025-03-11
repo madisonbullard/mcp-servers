@@ -5,6 +5,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { version } from "../package.json";
+import { api, endpoints } from "@madisonbullard/shortcut-api-client";
 import { getEpic, getEpicStories, getEpicText } from "./shortcut/epic.js";
 import {
 	getObjective,
@@ -18,6 +19,33 @@ const server = new McpServer({
 	name: "shortcut",
 	version,
 });
+
+const methods = Object.keys(api) as (keyof typeof api)[];
+const [firstKey, ...otherKeys] = methods;
+const params = endpoints.map(endpoint => endpoint.parameters)
+
+const params = z.discriminatedUnion("params", endpoints.map(endpoint => endpoint.parameters))
+
+server.tool(
+	"shortcut-api-client",
+	"Make a call to the Shortcut using a Javascript API client",
+	{
+		method: z
+			// hacky way to get z.enum to recognize all keys
+			.enum([firstKey, ...otherKeys])
+			.describe("The method to call on the client"),
+		params: api[this.method]
+		args: z
+			.record(z.string(), z.any())
+			.optional()
+			.describe("Arguments to pass to the method"),
+	},
+	async ({ method, args }) => {
+		const c = await api[method];
+		if (!c) throw new Error(`No method ${method} available on the client`)
+		return await c(...args);
+	},
+);
 
 server.tool(
 	"get-story",

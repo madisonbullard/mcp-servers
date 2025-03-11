@@ -18,7 +18,8 @@
 		"build": "rm -rf dist && tsup src/index.ts --dts --format esm",
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
-		"generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts"
+		"generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts --extract-request-params --extract-request-body --clean-output",
+		"generate-api-client2": "bunx openapi-zod-client https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src/index.ts --export-schemas --export-types --with-description --base-url 'https://api.app.shortcut.com'"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",
@@ -26,5 +27,9 @@
 	},
 	"engines": {
 		"node": ">=16.17.0"
+	},
+	"dependencies": {
+		"@zodios/core": "10.9.6",
+		"axios": "1.8.2"
 	}
 }
