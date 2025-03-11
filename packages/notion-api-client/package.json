@@ -19,7 +19,7 @@
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
 		"generate-openapi": "bunx postman-to-openapi './assets/Notion API.postman_collection.json' -f ./assets/openapi.yml",
-		"generate-api-client": "bunx @openapitools/openapi-generator-cli generate -i ./assets/openapi.yml -g typescript -o ./src/generated",
+		"generate-api-client": "bunx @openapitools/openapi-generator-cli generate -i ./assets/openapi.yml -g typescript-fetch -o ./src/generated",
 		"generate": "bun run generate-openapi && bun run generate-api-client"
 	},
 	"devDependencies": {
