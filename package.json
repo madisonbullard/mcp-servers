@@ -1,22 +1,22 @@
 {
-  "name": "@madisonbullard/mcp-servers",
-  "version": "0.0.0",
-  "type": "module",
-  "private": true,
-  "workspaces": ["packages/*"],
-  "scripts": {
-    "check": "bun biome check",
-    "fix": "bun check --write ./",
-    "typecheck": "bun --filter=* typecheck",
-    "build": "packages/scripts/build.sh",
-    "release": "tsx packages/scripts/release.ts"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@tsconfig/node22": "22.0.0",
-    "@types/bun": "latest",
-    "@types/node": "22.13.9",
-    "typescript": "5.8.2"
-  },
-  "trustedDependencies": ["@biomejs/biome", "esbuild"]
+	"name": "@madisonbullard/mcp-servers",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"workspaces": ["packages/*"],
+	"scripts": {
+		"check": "bun biome check",
+		"fix": "bun check --write ./",
+		"typecheck": "bun --filter=* typecheck",
+		"build": "packages/scripts/build.sh",
+		"release": "tsx packages/scripts/release.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@tsconfig/node22": "22.0.0",
+		"@types/bun": "latest",
+		"@types/node": "22.13.9",
+		"typescript": "5.8.2"
+	},
+	"trustedDependencies": ["@biomejs/biome", "esbuild"]
 }
