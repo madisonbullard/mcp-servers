@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { log } from "@madisonbullard/mcp-servers-core";
 import { EndpointByMethod } from "@madisonbullard/shortcut-api-client";
 import openApiJson from "@madisonbullard/shortcut-api-client/shortcut.openapi.json" with {
 	type: "json",
@@ -8,7 +9,6 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { version } from "../package.json";
 import { client } from "./shortcut/client";
-import { log } from "./utils/log.js";
 
 const server = new McpServer({
 	name: "shortcut",
