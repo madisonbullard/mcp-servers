@@ -182,39 +182,41 @@ async function run() {
 		if (!skipVersion && !finish) {
 			const cmdsToRun: string[] = [];
 
-			packages.map(async ({ json, path, cwd }) => {
-				const next = { ...json };
-				const packagesToUpdate: string[] = [];
+			await Promise.all(
+				packages.map(async ({ json, path, cwd }) => {
+					const next = { ...json };
+					const packagesToUpdate: string[] = [];
 
-				next.version = version;
+					next.version = version;
 
-				for (const field of [
-					"dependencies",
-					"devDependencies",
-					"optionalDependencies",
-					"peerDependencies",
-				]) {
-					const nextDeps = next[field];
-					if (!nextDeps) continue;
-					for (const depName in nextDeps) {
-						if (!nextDeps[depName].startsWith("workspace:")) {
-							if (packages.some((p) => p.name === depName)) {
-								nextDeps[depName] = version;
-							}
-						} else {
-							if (!packagesToUpdate.includes(depName)) {
-								packagesToUpdate.push(depName);
+					for (const field of [
+						"dependencies",
+						"devDependencies",
+						"optionalDependencies",
+						"peerDependencies",
+					]) {
+						const nextDeps = next[field];
+						if (!nextDeps) continue;
+						for (const depName in nextDeps) {
+							if (!nextDeps[depName].startsWith("workspace:")) {
+								if (packages.some((p) => p.name === depName)) {
+									nextDeps[depName] = version;
+								}
+							} else {
+								if (!packagesToUpdate.includes(depName)) {
+									packagesToUpdate.push(depName);
+								}
 							}
 						}
 					}
-				}
 
-				await fs.writeJSON(path, next, { spaces: 2 });
-				packagesToUpdate.length &&
-					cmdsToRun.push(
-						`bun update ${packagesToUpdate.join(" ")} --cwd ${cwd}`,
-					);
-			});
+					await fs.writeJSON(path, next, { spaces: 2 });
+					packagesToUpdate.length &&
+						cmdsToRun.push(
+							`bun update ${packagesToUpdate.join(" ")} --cwd ${cwd}`,
+						);
+				}),
+			);
 
 			for (const cmd of cmdsToRun) {
 				await spawnify(cmd);
