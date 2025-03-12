@@ -15,8 +15,6 @@
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
-		"build": "rm -rf dist && tsup src/index.ts --dts --format esm",
-		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
 		"generate-openapi": "bunx postman-to-openapi './assets/Notion API.postman_collection.json' -f ./assets/openapi.yml",
 		"generate-api-client": "bunx @openapitools/openapi-generator-cli generate -i ./assets/openapi.yml -g typescript-fetch -o ./src/generated",

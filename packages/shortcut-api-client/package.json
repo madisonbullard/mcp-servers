@@ -8,10 +8,13 @@
 	"files": ["dist"],
 	"access": "public",
 	"exports": {
-		"import": {
-			"types": "./dist/index.d.ts",
-			"default": "./dist/index.js"
-		}
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./*.json": "./src/*.json"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
@@ -19,7 +22,8 @@
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
 		"generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts --extract-request-params --extract-request-body --clean-output",
-		"generate-api-client2": "bunx openapi-zod-client https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src/index.ts --export-schemas --export-types --with-description --base-url 'https://api.app.shortcut.com'"
+		"generate-api-client2": "bunx typed-openapi ./src/shortcut.openapi.json -o ./src/index.ts -r zod",
+		"generate-openapi": "bunx swagger2openapi https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src/shortcut.openapi.json"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",
@@ -27,9 +31,5 @@
 	},
 	"engines": {
 		"node": ">=16.17.0"
-	},
-	"dependencies": {
-		"@zodios/core": "10.9.6",
-		"axios": "1.8.2"
 	}
 }

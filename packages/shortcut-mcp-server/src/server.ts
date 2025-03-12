@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 
-import type { Epic } from "@madisonbullard/shortcut-api-client";
+import {
+	EndpointByMethod,
+	type EndpointParameters,
+} from "@madisonbullard/shortcut-api-client";
+import openApiJson from "@madisonbullard/shortcut-api-client/shortcut.openapi.json" with {
+	type: "json",
+};
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
 import { version } from "../package.json";
-import { api, endpoints } from "@madisonbullard/shortcut-api-client";
-import { getEpic, getEpicStories, getEpicText } from "./shortcut/epic.js";
-import {
-	getObjective,
-	getObjectiveEpics,
-	getObjectiveText,
-} from "./shortcut/objective";
-import { getStory, getStoryText } from "./shortcut/story.js";
+import { client } from "./shortcut/client";
 import { log } from "./utils/log.js";
 
 const server = new McpServer({
@@ -20,157 +18,71 @@ const server = new McpServer({
 	version,
 });
 
-const methods = Object.keys(api) as (keyof typeof api)[];
-const [firstKey, ...otherKeys] = methods;
-const params = endpoints.map(endpoint => endpoint.parameters)
+function getEndpointInfo(
+	method: "get" | "post" | "put" | "delete",
+	path: string,
+) {
+	const pathObj = openApiJson.paths[path as keyof typeof openApiJson.paths];
+	// biome-ignore lint/suspicious/noExplicitAny: OpenAPI path methods can vary
+	const endpoint = pathObj ? (pathObj as any)[method] : undefined;
 
-const params = z.discriminatedUnion("params", endpoints.map(endpoint => endpoint.parameters))
+	return {
+		summary:
+			// MCP (or at least Claude) reequires tool names to pass regex validation: /^[a-zA-Z0-9_-]{1,64}$/
+			// Manual inspection of the Shortcut OpenAPI summaries shows that they include spaces and parens,
+			// which need to be removed
+			endpoint?.summary
+				.replaceAll(" ", "-")
+				.replaceAll("(", "")
+				.replaceAll(")", "") || "",
+		description: endpoint?.description || "",
+	};
+}
 
-server.tool(
-	"shortcut-api-client",
-	"Make a call to the Shortcut using a Javascript API client",
-	{
-		method: z
-			// hacky way to get z.enum to recognize all keys
-			.enum([firstKey, ...otherKeys])
-			.describe("The method to call on the client"),
-		params: api[this.method]
-		args: z
-			.record(z.string(), z.any())
-			.optional()
-			.describe("Arguments to pass to the method"),
-	},
-	async ({ method, args }) => {
-		const c = await api[method];
-		if (!c) throw new Error(`No method ${method} available on the client`)
-		return await c(...args);
-	},
-);
+/**
+ * Helper function to register tools for each HTTP method and endpoint
+ */
+function registerEndpointTools<T extends "get" | "post" | "put" | "delete">(
+	method: T,
+	// biome-ignore lint/suspicious/noExplicitAny: OpenAPI endpoint structure is complex
+	endpoints: Record<string, any>,
+) {
+	for (const [path, endpoint] of Object.entries(endpoints)) {
+		const { summary, description } = getEndpointInfo(method, path);
 
-server.tool(
-	"get-story",
-	"Get a Shortcut story by ID",
-	{
-		storyID: z.number().describe("The ID of the story to get"),
-	},
-	async ({ storyID }) => {
-		const res = await getStory(storyID);
+		server.tool(
+			summary,
+			description,
+			{
+				parameters: endpoint.parameters,
+			},
+			async ({ parameters }) => {
+				const c = await (client[method] as (
+					url: string,
+					params: EndpointParameters,
+					// biome-ignore lint/suspicious/noExplicitAny: API response types vary
+				) => Promise<any>);
+				// biome-ignore lint/suspicious/noExplicitAny: API response types vary
+				const response = c(endpoint.path.value, parameters) as any;
 
-		if (!res.ok || res.error) {
-			return {
-				content: [
-					{
-						type: "text",
-						text: `Failed to retrieve Shortcut story with ID ${storyID}: ${res.status} error.`,
-					},
-				],
-			};
-		}
+				return {
+					content: [
+						{
+							type: "text",
+							text: JSON.stringify(response),
+						},
+					],
+				};
+			},
+		);
+	}
+}
 
-		const story = res.data;
-
-		const epicRes = story.epic_id
-			? await getEpic(story.epic_id)
-			: await Promise.resolve(undefined);
-
-		let epic: Epic | undefined;
-
-		if (!epicRes?.ok || epicRes.error) {
-			epic = undefined;
-		}
-
-		epic = epicRes?.data;
-
-		const text = getStoryText(story, epic);
-
-		return {
-			content: [
-				{
-					type: "text",
-					text,
-				},
-			],
-		};
-	},
-);
-
-server.tool(
-	"get-epic",
-	"Get a Shortcut Epic by ID",
-	{
-		epicID: z.number().describe("The ID of the Epic to get"),
-	},
-	async ({ epicID }) => {
-		const res = await getEpic(epicID);
-
-		if (!res.ok || res.error) {
-			return {
-				content: [
-					{
-						type: "text",
-						text: `Failed to retrieve Shortcut Epic with ID ${epicID}: ${res.status} error.`,
-					},
-				],
-			};
-		}
-
-		const epic = res.data;
-
-		const storiesRes = await getEpicStories(epic.id);
-
-		const stories = storiesRes.data;
-
-		const text = getEpicText(epic, stories);
-
-		return {
-			content: [
-				{
-					type: "text",
-					text,
-				},
-			],
-		};
-	},
-);
-
-server.tool(
-	"get-objective",
-	"Get a Shortcut Objective by ID",
-	{
-		objectiveID: z.number().describe("The ID of the Objective to get"),
-	},
-	async ({ objectiveID }) => {
-		const res = await getObjective(objectiveID);
-
-		if (!res.ok || res.error) {
-			return {
-				content: [
-					{
-						type: "text",
-						text: `Failed to retrieve Shortcut Objective with ID ${objectiveID}: ${res.status} error.`,
-					},
-				],
-			};
-		}
-
-		const objective = res.data;
-
-		const epicsRes = await getObjectiveEpics(objective.id);
-
-		const epics = epicsRes.data;
-
-		const text = getObjectiveText(objective, epics);
-
-		return {
-			content: [
-				{
-					type: "text",
-					text,
-				},
-			],
-		};
-	},
-);
+// Register tools for each HTTP method
+registerEndpointTools("get", EndpointByMethod.get);
+registerEndpointTools("post", EndpointByMethod.post);
+registerEndpointTools("put", EndpointByMethod.put);
+registerEndpointTools("delete", EndpointByMethod.delete);
 
 // Start server
 async function main() {
