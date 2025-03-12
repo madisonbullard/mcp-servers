@@ -8,8 +8,8 @@
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
 		"typecheck": "bun --filter=* typecheck",
-		"build": "scripts/build.sh",
-		"release": "tsx ./scripts/release.ts"
+		"build": "packages/scripts/build.sh",
+		"release": "tsx packages/scripts/release.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
