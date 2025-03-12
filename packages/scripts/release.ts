@@ -180,41 +180,45 @@ async function run() {
 		}
 
 		if (!skipVersion && !finish) {
-			await Promise.all(
-				packages.map(async ({ json, path, cwd }) => {
-					const next = { ...json };
-					const packagesToUpdate: string[] = [];
+			const cmdsToRun: string[] = [];
 
-					next.version = version;
+			packages.map(async ({ json, path, cwd }) => {
+				const next = { ...json };
+				const packagesToUpdate: string[] = [];
 
-					for (const field of [
-						"dependencies",
-						"devDependencies",
-						"optionalDependencies",
-						"peerDependencies",
-					]) {
-						const nextDeps = next[field];
-						if (!nextDeps) continue;
-						for (const depName in nextDeps) {
-							if (!nextDeps[depName].startsWith("workspace:")) {
-								if (packages.some((p) => p.name === depName)) {
-									nextDeps[depName] = version;
-								}
-							} else {
-								if (!packagesToUpdate.includes(depName)) {
-									packagesToUpdate.push(depName);
-								}
+				next.version = version;
+
+				for (const field of [
+					"dependencies",
+					"devDependencies",
+					"optionalDependencies",
+					"peerDependencies",
+				]) {
+					const nextDeps = next[field];
+					if (!nextDeps) continue;
+					for (const depName in nextDeps) {
+						if (!nextDeps[depName].startsWith("workspace:")) {
+							if (packages.some((p) => p.name === depName)) {
+								nextDeps[depName] = version;
+							}
+						} else {
+							if (!packagesToUpdate.includes(depName)) {
+								packagesToUpdate.push(depName);
 							}
 						}
 					}
+				}
 
-					await fs.writeJSON(path, next, { spaces: 2 });
-					packagesToUpdate.length &&
-						(await spawnify(
-							`bun update ${packagesToUpdate.join(" ")} --cwd ${cwd}`,
-						));
-				}),
-			);
+				await fs.writeJSON(path, next, { spaces: 2 });
+				packagesToUpdate.length &&
+					cmdsToRun.push(
+						`bun update ${packagesToUpdate.join(" ")} --cwd ${cwd}`,
+					);
+			});
+
+			for (const cmd of cmdsToRun) {
+				await spawnify(cmd);
+			}
 		}
 
 		console.info("install and build");
