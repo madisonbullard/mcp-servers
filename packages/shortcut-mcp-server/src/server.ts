@@ -57,13 +57,23 @@ function registerEndpointTools<T extends "get" | "post" | "put" | "delete">(
 				parameters: endpoint.parameters,
 			},
 			async ({ parameters }) => {
-				const c = await (client[method] as (
-					url: string,
-					params: EndpointParameters,
-					// biome-ignore lint/suspicious/noExplicitAny: API response types vary
-				) => Promise<any>);
 				// biome-ignore lint/suspicious/noExplicitAny: API response types vary
-				const response = c(endpoint.path.value, parameters) as any;
+				let response: any;
+
+				switch (method) {
+					case "get":
+						response = await client.get(endpoint.path.value, parameters);
+						break;
+					case "post":
+						response = await client.post(endpoint.path.value, parameters);
+						break;
+					case "put":
+						response = await client.put(endpoint.path.value, parameters);
+						break;
+					case "delete":
+						response = await client.delete(endpoint.path.value, parameters);
+						break;
+				}
 
 				return {
 					content: [

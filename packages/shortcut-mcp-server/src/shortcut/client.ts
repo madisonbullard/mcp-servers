@@ -1,4 +1,5 @@
 import { createApiClient } from "@madisonbullard/shortcut-api-client";
+import { log } from "../utils/log";
 
 export const client = createApiClient((method, url, params) => {
 	// Replace dynamic route parameters in the URL
