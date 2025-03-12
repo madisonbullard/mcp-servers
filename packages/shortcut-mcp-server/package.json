@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/shortcut-mcp-server",
-	"version": "1.8.1",
+	"version": "1.8.2",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -18,8 +18,8 @@
 		"inspector": "bunx @modelcontextprotocol/inspector dist/server.js"
 	},
 	"dependencies": {
-		"@madisonbullard/mcp-servers-core": "workspace:*",
 		"@madisonbullard/mcp-server-tui": "workspace:*",
+		"@madisonbullard/mcp-servers-core": "workspace:*",
 		"@madisonbullard/shortcut-api-client": "workspace:*",
 		"@modelcontextprotocol/sdk": "1.7.0"
 	},
