@@ -1,9 +1,12 @@
 {
 	"name": "@madisonbullard/mcp-servers-core",
-	"version": "0.0.0",
-	"module": "index.ts",
+	"version": "1.7.0",
 	"type": "module",
-	"private": true,
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist"],
+	"access": "public",
 	"exports": {
 		".": {
 			"import": {
