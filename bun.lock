@@ -13,11 +13,11 @@
     },
     "packages/core": {
       "name": "@madisonbullard/mcp-servers-core",
-      "version": "1.8.0",
+      "version": "1.8.1",
     },
     "packages/notion-api-client": {
       "name": "@madisonbullard/notion-api-client",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "devDependencies": {
         "shx": "0.3.4",
         "tsup": "8.4.0",
@@ -26,7 +26,7 @@
     },
     "packages/notion-mcp-server": {
       "name": "@madisonbullard/notion-mcp-server",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "bin": {
         "notion-mcp-server": "./dist/index.js"
       },
@@ -55,7 +55,7 @@
     },
     "packages/shortcut-api-client": {
       "name": "@madisonbullard/shortcut-api-client",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "devDependencies": {
         "shx": "0.3.4",
         "tsup": "8.4.0",
@@ -64,7 +64,7 @@
     },
     "packages/shortcut-mcp-server": {
       "name": "@madisonbullard/shortcut-mcp-server",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "bin": {
         "shortcut-mcp-server": "dist/index.js"
       },
@@ -81,7 +81,7 @@
     },
     "packages/tui": {
       "name": "@madisonbullard/mcp-server-tui",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "dependencies": {
         "@inkjs/ui": "2.0.0",
         "ink": "5.2.0",
