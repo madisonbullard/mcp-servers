@@ -21,7 +21,7 @@
 		"@madisonbullard/mcp-server-tui": "workspace:*",
 		"@madisonbullard/notion-api-client": "workspace:*",
 		"@madisonbullard/mcp-servers-core": "workspace:*",
-		"@modelcontextprotocol/sdk": "1.6.1"
+		"@modelcontextprotocol/sdk": "1.7.0"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",
