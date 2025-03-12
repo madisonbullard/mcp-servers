@@ -186,7 +186,7 @@ async function run() {
 
 					next.version = version;
 
-					const packagesToUpdate = [];
+					const packagesToUpdate: string[] = [];
 
 					for (const field of [
 						"dependencies",
@@ -202,7 +202,9 @@ async function run() {
 									nextDeps[depName] = version;
 								}
 							} else {
-								packagesToUpdate.push(depName);
+								if (!packagesToUpdate.includes(depName)) {
+									packagesToUpdate.push(depName);
+								}
 							}
 						}
 					}
