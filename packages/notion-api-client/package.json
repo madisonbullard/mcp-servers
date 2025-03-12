@@ -1,0 +1,36 @@
+{
+	"name": "@madisonbullard/notion-api-client",
+	"version": "1.6.1",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist"],
+	"access": "public",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./*.json": "./src/*.json"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts --dts --format esm",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"generate-openapi": "bunx postman-to-openapi './assets/Notion API.postman_collection.json' -f ./src/openapi.json -o ./assets/postman-to-openapi-options.json",
+		"generate-api-client": "bunx typed-openapi ./src/openapi.json -o ./src/index.ts -r zod",
+		"generate": "bun run generate-openapi && bun run generate-api-client"
+	},
+	"devDependencies": {
+		"shx": "0.3.4",
+		"tsup": "8.4.0",
+		"zod": "3.24.2"
+	},
+	"engines": {
+		"node": ">=16.17.0"
+	}
+}

@@ -12,6 +12,7 @@
 			"packages/shortcut-api-client/src/shortcut.openapi.json",
 			"packages/notion-api-client/assets",
 			"packages/notion-api-client/src/index.ts",
+			"packages/notion-api-client/src/openapi.json",
 			"dist"
 		]
 	},

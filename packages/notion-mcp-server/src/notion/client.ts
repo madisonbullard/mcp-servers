@@ -1,4 +1,4 @@
-import { createApiClient } from "@madisonbullard/shortcut-api-client";
+import { createApiClient } from "@madisonbullard/notion-api-client";
 
 export const client = createApiClient((method, url, params) => {
 	// Replace dynamic route parameters in the URL
@@ -19,7 +19,9 @@ export const client = createApiClient((method, url, params) => {
 	return fetch(fullUrl, {
 		method,
 		body: params?.body ? JSON.stringify(params.body) : undefined,
-		// biome-ignore lint/style/noNonNullAssertion: <explanation>
-		headers: { "Shortcut-Token": process.env.SHORTCUT_API_TOKEN! },
+		headers: {
+			Authorization: `Bearer ${process.env.NOTION_API_TOKEN}`,
+			"Notion-Version": "2022-06-28",
+		},
 	}).then((res) => res.json());
-}, "https://api.app.shortcut.com");
+}, "https://api.notion.com");

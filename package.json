@@ -15,13 +15,7 @@
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node22": "22.0.0",
 		"@types/bun": "latest",
-		"@types/fs-extra": "11.0.4",
 		"@types/node": "22.13.9",
-		"@types/prompts": "2.4.9",
-		"fs-extra": "11.3.0",
-		"p-map": "7.0.3",
-		"prompts": "2.4.2",
-		"tsx": "4.19.3",
 		"typescript": "5.8.2"
 	},
 	"trustedDependencies": ["@biomejs/biome"]

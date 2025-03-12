@@ -1,0 +1,33 @@
+{
+	"name": "@madisonbullard/notion-mcp-server",
+	"version": "1.6.1",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist", "README.md"],
+	"access": "public",
+	"bin": {
+		"notion-mcp-server": "./dist/index.js"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts src/server.ts --format esm",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"inspector": "bunx @modelcontextprotocol/inspector dist/server.js"
+	},
+	"dependencies": {
+		"@madisonbullard/mcp-server-tui": "workspace:*",
+		"@madisonbullard/notion-api-client": "workspace:*",
+		"@madisonbullard/mcp-servers-core": "workspace:*",
+		"@modelcontextprotocol/sdk": "1.6.1"
+	},
+	"devDependencies": {
+		"shx": "0.3.4",
+		"tsup": "8.4.0"
+	},
+	"engines": {
+		"node": ">=16.17.0"
+	}
+}

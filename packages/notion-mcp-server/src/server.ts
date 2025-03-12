@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 
-import { EndpointByMethod } from "@madisonbullard/shortcut-api-client";
-import openApiJson from "@madisonbullard/shortcut-api-client/shortcut.openapi.json" with {
+import { log } from "@madisonbullard/mcp-servers-core";
+import { EndpointByMethod } from "@madisonbullard/notion-api-client";
+import openApiJson from "@madisonbullard/notion-api-client/openapi.json" with {
 	type: "json",
 };
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { version } from "../package.json";
-import { client } from "./shortcut/client";
-import { log } from "./utils/log.js";
+import { client } from "./notion/client";
 
 const server = new McpServer({
-	name: "shortcut",
+	name: "notion",
 	version,
 });
 
 function getEndpointInfo(
-	method: "get" | "post" | "put" | "delete",
+	method: "get" | "post" | "patch" | "delete",
 	path: string,
 ) {
 	const pathObj = openApiJson.paths[path as keyof typeof openApiJson.paths];
@@ -26,10 +26,12 @@ function getEndpointInfo(
 	return {
 		summary:
 			// MCP (or at least Claude) reequires tool names to pass regex validation: /^[a-zA-Z0-9_-]{1,64}$/
-			// Manual inspection of the Shortcut OpenAPI summaries shows that they include spaces and parens,
+			// Manual inspection of the Notion OpenAPI summaries shows that they include spaces and parens,
 			// which need to be removed
 			endpoint?.summary
 				.replaceAll(" ", "-")
+				.replaceAll("'", "")
+				.replaceAll("’", "")
 				.replaceAll("(", "")
 				.replaceAll(")", "") || "",
 		description: endpoint?.description || "",
@@ -39,7 +41,7 @@ function getEndpointInfo(
 /**
  * Helper function to register tools for each HTTP method and endpoint
  */
-function registerEndpointTools<T extends "get" | "post" | "put" | "delete">(
+function registerEndpointTools<T extends "get" | "post" | "patch" | "delete">(
 	method: T,
 	// biome-ignore lint/suspicious/noExplicitAny: OpenAPI endpoint structure is complex
 	endpoints: Record<string, any>,
@@ -64,11 +66,11 @@ function registerEndpointTools<T extends "get" | "post" | "put" | "delete">(
 					case "post":
 						response = await client.post(endpoint.path.value, parameters);
 						break;
-					case "put":
-						response = await client.put(endpoint.path.value, parameters);
-						break;
 					case "delete":
 						response = await client.delete(endpoint.path.value, parameters);
+						break;
+					case "patch":
+						response = await client.patch(endpoint.path.value, parameters);
 						break;
 				}
 
@@ -88,8 +90,8 @@ function registerEndpointTools<T extends "get" | "post" | "put" | "delete">(
 // Register tools for each HTTP method
 registerEndpointTools("get", EndpointByMethod.get);
 registerEndpointTools("post", EndpointByMethod.post);
-registerEndpointTools("put", EndpointByMethod.put);
 registerEndpointTools("delete", EndpointByMethod.delete);
+registerEndpointTools("patch", EndpointByMethod.patch);
 
 // Start server
 async function main() {

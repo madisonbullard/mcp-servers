@@ -1,0 +1,21 @@
+{
+	"name": "@madisonbullard/mcp-servers-core",
+	"version": "0.0.0",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts --dts --format esm",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch"
+	}
+}
