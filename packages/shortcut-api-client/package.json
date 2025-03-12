@@ -21,9 +21,8 @@
 		"build": "rm -rf dist && tsup src/index.ts --dts --format esm",
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
-		"generate-api-client": "bunx swagger-typescript-api -p https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src -n index.ts --extract-request-params --extract-request-body --clean-output",
-		"generate-api-client2": "bunx typed-openapi ./src/shortcut.openapi.json -o ./src/index.ts -r zod",
-		"generate-openapi": "bunx swagger2openapi https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src/shortcut.openapi.json"
+		"generate-openapi": "bunx swagger2openapi https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o ./src/shortcut.openapi.json",
+		"generate-api-client": "bunx typed-openapi ./src/shortcut.openapi.json -o ./src/index.ts -r zod"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",
