@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+apis/BlocksApi.ts
+apis/CommentsApi.ts
+apis/DatabasesApi.ts
+apis/PagesApi.ts
+apis/SearchApi.ts
+apis/UsersApi.ts
+apis/index.ts
+index.ts
+runtime.ts
