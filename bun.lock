@@ -17,27 +17,6 @@
         "typescript": "5.8.2",
       },
     },
-    "packages/notion-api-client": {
-      "name": "@madisonbullard/notion-api-client",
-      "version": "1.5.0",
-      "devDependencies": {
-        "shx": "0.3.4",
-        "tsup": "8.4.0",
-        "zod": "3.24.2",
-      },
-    },
-    "packages/notion-mcp-server": {
-      "name": "@madisonbullard/notion-mcp-server",
-      "version": "1.5.0",
-      "bin": {
-        "mcp-notion-server": "./build/index.js"
-      },
-      "dependencies": {
-        "@madisonbullard/mcp-server-tui": "workspace:*",
-        "@madisonbullard/notion-api-client": "workspace:*",
-        "@modelcontextprotocol/sdk": "1.6.1",
-      },
-    },
     "packages/shortcut-api-client": {
       "name": "@madisonbullard/shortcut-api-client",
       "version": "1.6.0",
@@ -170,10 +149,6 @@
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.25", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ=="],
 
     "@madisonbullard/mcp-server-tui": ["@madisonbullard/mcp-server-tui@workspace:packages/tui"],
-
-    "@madisonbullard/notion-api-client": ["@madisonbullard/notion-api-client@workspace:packages/notion-api-client"],
-
-    "@madisonbullard/notion-mcp-server": ["@madisonbullard/notion-mcp-server@workspace:packages/notion-mcp-server"],
 
     "@madisonbullard/shortcut-api-client": ["@madisonbullard/shortcut-api-client@workspace:packages/shortcut-api-client"],
 
