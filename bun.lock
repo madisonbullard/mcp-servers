@@ -97,6 +97,7 @@
     },
   },
   "trustedDependencies": [
+    "esbuild",
     "@biomejs/biome",
   ],
   "packages": {
