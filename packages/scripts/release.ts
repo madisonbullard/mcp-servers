@@ -183,10 +183,9 @@ async function run() {
 			await Promise.all(
 				packages.map(async ({ json, path, cwd }) => {
 					const next = { ...json };
+					const packagesToUpdate: string[] = [];
 
 					next.version = version;
-
-					const packagesToUpdate: string[] = [];
 
 					for (const field of [
 						"dependencies",
@@ -211,9 +210,9 @@ async function run() {
 
 					await fs.writeJSON(path, next, { spaces: 2 });
 					packagesToUpdate.length &&
-						(await spawnify(`bun update ${packagesToUpdate.join(" ")}`, {
-							cwd,
-						}));
+						(await spawnify(
+							`bun update ${packagesToUpdate.join(" ")} --cwd ${cwd}`,
+						));
 				}),
 			);
 		}
