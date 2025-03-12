@@ -9,7 +9,9 @@
 		"ignoreUnknown": false,
 		"ignore": [
 			"packages/shortcut-api-client/src/index.ts",
+			"packages/shortcut-api-client/src/shortcut.openapi.json",
 			"packages/notion-api-client/assets",
+			"packages/notion-api-client/openapitools.json",
 			"packages/notion-api-client/src/generated",
 			"dist"
 		]
