@@ -2,7 +2,7 @@
 
 import { log } from "@madisonbullard/mcp-servers-core";
 import { EndpointByMethod } from "@madisonbullard/shortcut-api-client";
-import openApiJson from "@madisonbullard/shortcut-api-client/shortcut.openapi.json" with {
+import openApiJson from "@madisonbullard/shortcut-api-client/openapi.json" with {
 	type: "json",
 };
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
