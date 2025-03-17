@@ -21,9 +21,10 @@
 		"build": "rm -rf dist && tsup src/index.ts --dts --format esm --publicDir ./src/public",
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
-		"generate-openapi": "bunx postman-to-openapi './assets/Notion API.postman_collection.json' -f ./src/public/openapi.json -o ./assets/postman-to-openapi-options.json",
+		"generate-openapi": "bunx postman-to-openapi './assets/Notion API.postman_collection.json' -f ./assets/openapi.json -o ./assets/postman-to-openapi-options.json",
+		"generate-openapi-processed": "bun run ../scripts/omit-header-params.ts -i ./assets/openapi.json -o ./src/public/openapi.json -h Authorization,Content-Type",
 		"generate-api-client": "bunx typed-openapi ./src/public/openapi.json -o ./src/index.ts -r zod",
-		"generate": "bun run generate-openapi && bun run generate-api-client"
+		"generate": "bun run generate-openapi && bun run generate-openapi-processed && bun run generate-api-client"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",
