@@ -115,17 +115,6 @@
 					}
 				},
 				"parameters": [
-					{
-						"name": "x-coderabbitai-api-key",
-						"description": "Your CodeRabbit API key",
-						"required": true,
-						"example": "cr-xxxxxxxxxx",
-						"allowEmptyValue": false,
-						"schema": {
-							"type": "string"
-						},
-						"in": "header"
-					}
 				],
 				"responses": {
 					"200": {

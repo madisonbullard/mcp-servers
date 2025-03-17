@@ -6,9 +6,6 @@ export const post_Report__generate = {
   path: z.literal("/v1/report.generate"),
   requestFormat: z.literal("json"),
   parameters: z.object({
-    header: z.object({
-      "x-coderabbitai-api-key": z.string(),
-    }),
     body: z.object({
       scheduleRange: z.union([z.literal("Dates"), z.undefined()]).optional(),
       from: z.string(),
