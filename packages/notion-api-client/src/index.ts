@@ -9,9 +9,6 @@ export const get_V1usersId = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
   }),
   response: z.unknown(),
 };
@@ -21,11 +18,7 @@ export const get_V1users = {
   method: z.literal("GET"),
   path: z.literal("/v1/users"),
   requestFormat: z.literal("json"),
-  parameters: z.object({
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
-  }),
+  parameters: z.never(),
   response: z.unknown(),
 };
 
@@ -34,11 +27,7 @@ export const get_V1usersme = {
   method: z.literal("GET"),
   path: z.literal("/v1/users/me"),
   requestFormat: z.literal("json"),
-  parameters: z.object({
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
-  }),
+  parameters: z.never(),
   response: z.unknown(),
 };
 
@@ -50,9 +39,6 @@ export const get_V1databasesId = {
   parameters: z.object({
     path: z.object({
       id: z.string(),
-    }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
     }),
   }),
   response: z.unknown(),
@@ -66,9 +52,6 @@ export const patch_V1databasesId = {
   parameters: z.object({
     path: z.object({
       id: z.string(),
-    }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
     }),
     body: z.unknown(),
   }),
@@ -84,11 +67,6 @@ export const post_V1databasesIdquery = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      Authorization: z.string().optional(),
-      "Content-Type": z.string().optional(),
-      "Notion-Version": z.string().optional(),
-    }),
     body: z.string(),
   }),
   response: z.unknown(),
@@ -100,10 +78,6 @@ export const post_V1databases = {
   path: z.literal("/v1/databases/"),
   requestFormat: z.literal("text"),
   parameters: z.object({
-    header: z.object({
-      "Content-Type": z.string().optional(),
-      "Notion-Version": z.string().optional(),
-    }),
     body: z.string(),
   }),
   response: z.unknown(),
@@ -115,11 +89,6 @@ export const post_V1pages = {
   path: z.literal("/v1/pages/"),
   requestFormat: z.literal("text"),
   parameters: z.object({
-    header: z.object({
-      Authorization: z.string().optional(),
-      "Content-Type": z.string().optional(),
-      "Notion-Version": z.string().optional(),
-    }),
     body: z.string(),
   }),
   response: z.unknown(),
@@ -134,9 +103,6 @@ export const get_V1pagesId = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
   }),
   response: z.unknown(),
 };
@@ -149,9 +115,6 @@ export const patch_V1pagesId = {
   parameters: z.object({
     path: z.object({
       id: z.string(),
-    }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
     }),
     body: z.unknown(),
   }),
@@ -167,9 +130,6 @@ export const get_V1pagesPage_idpropertiesProperty_id = {
     path: z.object({
       page_id: z.string(),
       property_id: z.string(),
-    }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
     }),
   }),
   response: z.unknown(),
@@ -187,9 +147,6 @@ export const get_V1blocksIdchildren = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
   }),
   response: z.unknown(),
 };
@@ -202,11 +159,6 @@ export const patch_V1blocksIdchildren = {
   parameters: z.object({
     path: z.object({
       id: z.string(),
-    }),
-    header: z.object({
-      Authorization: z.string().optional(),
-      "Content-Type": z.string().optional(),
-      "Notion-Version": z.string().optional(),
     }),
     body: z.string(),
   }),
@@ -222,9 +174,6 @@ export const patch_V1blocksId = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
     body: z.unknown(),
   }),
   response: z.unknown(),
@@ -239,9 +188,6 @@ export const get_V1blocksId = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
   }),
   response: z.unknown(),
 };
@@ -255,9 +201,6 @@ export const delete_V1blocksId = {
     path: z.object({
       id: z.string(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
   }),
   response: z.unknown(),
 };
@@ -268,10 +211,6 @@ export const post_V1search = {
   path: z.literal("/v1/search"),
   requestFormat: z.literal("text"),
   parameters: z.object({
-    header: z.object({
-      "Content-Type": z.string().optional(),
-      "Notion-Version": z.string().optional(),
-    }),
     body: z.string(),
   }),
   response: z.unknown(),
@@ -287,9 +226,6 @@ export const get_V1comments = {
       block_id: z.string().optional(),
       page_size: z.number().optional(),
     }),
-    header: z.object({
-      "Notion-Version": z.string().optional(),
-    }),
   }),
   response: z.unknown(),
 };
@@ -300,10 +236,6 @@ export const post_V1comments = {
   path: z.literal("/v1/comments"),
   requestFormat: z.literal("text"),
   parameters: z.object({
-    header: z.object({
-      "Content-Type": z.string().optional(),
-      "Notion-Version": z.string().optional(),
-    }),
     body: z.string(),
   }),
   response: z.unknown(),

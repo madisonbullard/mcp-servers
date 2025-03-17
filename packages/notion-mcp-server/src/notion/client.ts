@@ -22,6 +22,7 @@ export const client = createApiClient((method, url, params) => {
 		headers: {
 			Authorization: `Bearer ${process.env.NOTION_API_TOKEN}`,
 			"Notion-Version": "2022-06-28",
+			"Content-Type": "application/json",
 		},
 	}).then((res) => res.json());
 }, "https://api.notion.com");
