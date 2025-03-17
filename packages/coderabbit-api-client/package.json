@@ -1,0 +1,34 @@
+{
+	"name": "@madisonbullard/coderabbit-api-client",
+	"version": "1.8.3",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist"],
+	"access": "public",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./*.json": "./dist/*.json"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts --dts --format esm --publicDir ./src/public",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"generate-api-client": "bunx typed-openapi ./src/public/openapi.json -o ./src/index.ts -r zod"
+	},
+	"devDependencies": {
+		"shx": "0.3.4",
+		"tsup": "8.4.0",
+		"zod": "3.24.2"
+	},
+	"engines": {
+		"node": ">=16.17.0"
+	}
+}

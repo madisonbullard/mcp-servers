@@ -13,6 +13,8 @@
 			"packages/notion-api-client/assets",
 			"packages/notion-api-client/src/index.ts",
 			"packages/notion-api-client/src/public/openapi.json",
+			"packages/coderabbit-api-client/src/index.ts",
+			"packages/coderabbit-api-client/src/public/openapi.json",
 			"dist"
 		]
 	},

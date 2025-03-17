@@ -1,0 +1,210 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "CodeRabbit API spec",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "https://api.coderabbit.ai/api"
+		}
+	],
+	"paths": {
+		"/v1/report.generate": {
+			"post": {
+				"operationId": "report-generate",
+				"summary": "(Beta)",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"scheduleRange": {
+										"type": "string",
+										"enum": ["Dates"]
+									},
+									"from": {
+										"type": "string",
+										"format": "date"
+									},
+									"to": {
+										"type": "string",
+										"format": "date"
+									},
+									"prompt": {
+										"type": "string"
+									},
+									"promptTemplate": {
+										"type": "string",
+										"enum": [
+											"Daily Standup Report",
+											"Sprint Report",
+											"Release Notes",
+											"Custom"
+										]
+									},
+									"parameters": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"parameter": {
+													"type": "string",
+													"enum": [
+														"REPOSITORY",
+														"LABEL",
+														"TEAM",
+														"USER",
+														"SOURCEBRANCH",
+														"TARGETBRANCH"
+													]
+												},
+												"operator": {
+													"type": "string",
+													"enum": ["IN", "ALL"]
+												},
+												"values": {
+													"type": "array",
+													"items": {
+														"type": "string"
+													}
+												}
+											},
+											"required": ["parameter", "operator", "values"],
+											"additionalProperties": false
+										}
+									},
+									"groupBy": {
+										"type": "string",
+										"enum": [
+											"NONE",
+											"REPOSITORY",
+											"LABEL",
+											"TEAM",
+											"USER",
+											"SOURCEBRANCH",
+											"TARGETBRANCH"
+										]
+									},
+									"subgroupBy": {
+										"type": "string",
+										"enum": [
+											"NONE",
+											"REPOSITORY",
+											"LABEL",
+											"TEAM",
+											"USER",
+											"SOURCEBRANCH",
+											"TARGETBRANCH"
+										]
+									},
+									"orgId": {
+										"type": "string"
+									}
+								},
+								"required": ["from", "to"],
+								"additionalProperties": false
+							},
+							"example": {
+								"from": "2024-05-01",
+								"to": "2024-05-15"
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "x-coderabbitai-api-key",
+						"description": "Your CodeRabbit API key",
+						"required": true,
+						"example": "cr-xxxxxxxxxx",
+						"allowEmptyValue": false,
+						"schema": {
+							"type": "string"
+						},
+						"in": "header"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"group": {
+												"type": "string"
+											},
+											"report": {
+												"type": "string"
+											}
+										},
+										"required": ["group", "report"],
+										"additionalProperties": false
+									}
+								},
+								"example": [
+									{
+										"group": "Developer Activity",
+										"report": "*Developer Activity*:\n\n 🟢 **Update README.md** [#10](https://gitlab.com/master-group123/sub-group/project1/-/merge_requests/10)\n• Summary: The change updates the project description and modifies a section header for clearer instructions.\n• Last activity: 1 day ago, mergeable\n• Insights:\n - :magnifying_glass: @user2 Suggested updating the wording to make it clearer"
+									}
+								]
+							}
+						}
+					},
+					"default": {
+						"$ref": "#/components/responses/error"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"Authorization": {
+				"type": "http",
+				"scheme": "bearer"
+			}
+		},
+		"responses": {
+			"error": {
+				"description": "Error response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								},
+								"code": {
+									"type": "string"
+								},
+								"issues": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"message": {
+												"type": "string"
+											}
+										},
+										"required": ["message"],
+										"additionalProperties": false
+									}
+								}
+							},
+							"required": ["message", "code"],
+							"additionalProperties": false
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -11,6 +11,15 @@
         "typescript": "5.8.2",
       },
     },
+    "packages/coderabbit-api-client": {
+      "name": "@madisonbullard/coderabbit-api-client",
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5.0.0",
+      },
+    },
     "packages/core": {
       "name": "@madisonbullard/mcp-servers-core",
       "version": "1.8.3",
@@ -185,6 +194,8 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.0", "", {}, "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.25", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ=="],
+
+    "@madisonbullard/coderabbit-api-client": ["@madisonbullard/coderabbit-api-client@workspace:packages/coderabbit-api-client"],
 
     "@madisonbullard/mcp-server-tui": ["@madisonbullard/mcp-server-tui@workspace:packages/tui"],
 
