@@ -1,4 +1,5 @@
 import { createApiClient } from "@madisonbullard/notion-api-client";
+import { Client } from "@notionhq/client";
 
 export const openapiClient = createApiClient((method, url, params) => {
 	// Replace dynamic route parameters in the URL
@@ -26,3 +27,7 @@ export const openapiClient = createApiClient((method, url, params) => {
 		},
 	}).then((res) => res.json());
 }, "https://api.notion.com");
+
+export const notionSdkClient = new Client({
+	auth: process.env.NOTION_API_TOKEN,
+});

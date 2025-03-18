@@ -22,7 +22,8 @@
 		"@madisonbullard/mcp-servers-core": "workspace:*",
 		"@madisonbullard/notion-api-client": "workspace:*",
 		"@modelcontextprotocol/sdk": "1.7.0",
-		"@notionhq/client": "2.3.0"
+		"@notionhq/client": "2.3.0",
+		"zod": "3.24.2"
 	},
 	"devDependencies": {
 		"shx": "0.3.4",
