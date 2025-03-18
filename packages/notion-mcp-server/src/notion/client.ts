@@ -1,6 +1,6 @@
 import { createApiClient } from "@madisonbullard/notion-api-client";
 
-export const client = createApiClient((method, url, params) => {
+export const openapiClient = createApiClient((method, url, params) => {
 	// Replace dynamic route parameters in the URL
 	let fullUrl = url;
 

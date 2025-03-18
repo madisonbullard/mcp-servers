@@ -8,7 +8,7 @@ import openApiJson from "@madisonbullard/notion-api-client/openapi.json" with {
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { version } from "../package.json";
-import { client } from "./notion/client";
+import { openapiClient } from "./notion/client";
 
 const server = new McpServer({
 	name: "notion",
@@ -61,16 +61,25 @@ function registerEndpointTools<T extends "get" | "post" | "patch" | "delete">(
 
 				switch (method) {
 					case "get":
-						response = await client.get(endpoint.path.value, parameters);
+						response = await openapiClient.get(endpoint.path.value, parameters);
 						break;
 					case "post":
-						response = await client.post(endpoint.path.value, parameters);
+						response = await openapiClient.post(
+							endpoint.path.value,
+							parameters,
+						);
 						break;
 					case "delete":
-						response = await client.delete(endpoint.path.value, parameters);
+						response = await openapiClient.delete(
+							endpoint.path.value,
+							parameters,
+						);
 						break;
 					case "patch":
-						response = await client.patch(endpoint.path.value, parameters);
+						response = await openapiClient.patch(
+							endpoint.path.value,
+							parameters,
+						);
 						break;
 				}
 
