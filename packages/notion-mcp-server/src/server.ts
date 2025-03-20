@@ -114,8 +114,8 @@ for (const [method, endpoints] of Object.entries(EndpointByMethod)) {
 	);
 }
 
-for (const toolArgs of Object.values(customToolsMap)) {
-	server.tool(...toolArgs);
+for (const registerToolFn of Object.values(customToolsMap)) {
+	registerToolFn(server);
 }
 
 // Start server
