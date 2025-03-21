@@ -26,7 +26,6 @@
 		"zod": "3.24.2"
 	},
 	"devDependencies": {
-		"notion-api-zod-schema": "0.6.0",
 		"shx": "0.3.4",
 		"tsup": "8.4.0"
 	},

@@ -1,15 +1,9 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { CreatePageParameters } from "@notionhq/client/build/src/api-endpoints";
-import {
-	NotionBasicTextType,
-	NotionBlockSchema,
-	NotionDatabasePropertySchema,
-	NotionDatabaseTitleSchema,
-	NotionDatabaseTitleType,
-} from "notion-api-zod-schema";
 import { z } from "zod";
 import { notionSdkClient } from "../notion/client";
 import { markdownToBlocks } from "../notion/markdownToBlocks";
+import { NotionDatabasePropertySchema } from "../notion/zod/NotionDatabaseSchema.js";
 
 // Define the parameter schema
 const createPageSchema = {

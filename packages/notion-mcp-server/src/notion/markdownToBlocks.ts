@@ -1,7 +1,7 @@
 import type { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 
 export function markdownToBlocks(markdown: string) {
-	const lines = markdown.split("\n");
+	const lines = markdown.split("\n").filter(Boolean);
 	const blocks: BlockObjectRequest[] = [];
 	let currentCodeBlock: BlockObjectRequest | null = null;
 
