@@ -10,6 +10,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { version } from "../package.json";
 import { openapiClient } from "./notion/client";
 import { createPage } from "./tools/createPage";
+import { updatePageContent } from "./tools/updatePageContent";
 
 const server = new McpServer({
 	name: "notion",
@@ -41,7 +42,11 @@ function getEndpointInfo(
 
 // Paths that will be handled by the Notion SDK rather than the OpenAPI client,
 // because the OpenAPI definitions are incorrect/incomplete for these paths
-const customToolsMap = { "/v1/pages/": createPage };
+const customToolsMap = {
+	"/v1/pages/": createPage,
+	"/v1/blocks/{id}/children": updatePageContent,
+	"/v1/blocks/{id}": updatePageContent,
+};
 const pathsWithCustomTools = Object.keys(customToolsMap);
 
 /**
