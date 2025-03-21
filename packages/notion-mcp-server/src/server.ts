@@ -45,7 +45,7 @@ function getEndpointInfo(
 const customToolsMap = {
 	"/v1/pages/": createPage,
 	"/v1/blocks/{id}/children": updatePageContent,
-	"/v1/blocks/{id}": updatePageContent,
+	"/v1/blocks/{id}": null,
 };
 const pathsWithCustomTools = Object.keys(customToolsMap);
 
@@ -120,7 +120,7 @@ for (const [method, endpoints] of Object.entries(EndpointByMethod)) {
 }
 
 for (const registerToolFn of Object.values(customToolsMap)) {
-	registerToolFn(server);
+	registerToolFn?.(server);
 }
 
 // Start server
