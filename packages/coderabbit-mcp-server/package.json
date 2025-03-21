@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/coderabbit-mcp-server",
-	"version": "1.8.3",
+	"version": "1.9.0",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -18,9 +18,9 @@
 		"inspector": "bunx @modelcontextprotocol/inspector dist/server.js"
 	},
 	"dependencies": {
+		"@madisonbullard/coderabbit-api-client": "workspace:*",
 		"@madisonbullard/mcp-server-tui": "workspace:*",
 		"@madisonbullard/mcp-servers-core": "workspace:*",
-		"@madisonbullard/coderabbit-api-client": "workspace:*",
 		"@modelcontextprotocol/sdk": "1.7.0"
 	},
 	"devDependencies": {
