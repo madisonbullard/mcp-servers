@@ -11,6 +11,10 @@ It also contains MCP servers for various use cases, all installed via the TUI.
 - `@madisonbullard/mcp-server-tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
 - `@madisonbullard/shortcut-mcp-server`: An MCP server for Shortcut
 - `@madisonbullard/shortcut-api-client`: A client for the Shortcut API
+- `@madisonbullard/notion-mcp-server`: An MCP server for Notion
+- `@madisonbullard/notion-api-client`: A client for the Notion API
+- `@madisonbullard/coderabbit-mcp-server`: An MCP server for Coderabbit
+- `@madisonbullard/coderabbit-api-client`: A client for the Coderabbit API
 
 ## Development
 
