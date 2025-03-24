@@ -52,7 +52,9 @@ const pathsWithCustomTools = Object.keys(customToolsMap);
 /**
  * Helper function to register tools for each HTTP method and endpoint
  */
-function registerEndpointTools<T extends "get" | "post" | "patch" | "delete">(
+function registerToolsFromOpenapiSchema<
+	T extends "get" | "post" | "patch" | "delete",
+>(
 	method: T,
 	// biome-ignore lint/suspicious/noExplicitAny: OpenAPI endpoint structure is complex
 	endpoints: Record<string, any>,
@@ -111,13 +113,8 @@ function registerEndpointTools<T extends "get" | "post" | "patch" | "delete">(
 	}
 }
 
-// Register tools for each HTTP method
-for (const [method, endpoints] of Object.entries(EndpointByMethod)) {
-	registerEndpointTools(
-		method as "get" | "post" | "patch" | "delete",
-		endpoints,
-	);
-}
+// Only register GET endpoints from the openapi schema because the other endpoints have broken schema definitions
+registerToolsFromOpenapiSchema("get", EndpointByMethod.get);
 
 for (const registerToolFn of Object.values(customToolsMap)) {
 	registerToolFn?.(server);
