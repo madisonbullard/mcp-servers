@@ -25,7 +25,7 @@
 		"generate-api-client": "bunx typed-openapi ./src/public/openapi.json -o ./src/index.ts -r zod"
 	},
 	"devDependencies": {
-		"shx": "0.3.4",
+		"shx": "0.4.0",
 		"tsup": "8.4.0",
 		"zod": "3.24.2"
 	},

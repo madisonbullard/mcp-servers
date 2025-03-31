@@ -24,7 +24,7 @@
 	"devDependencies": {
 		"@types/react": "18.3.12",
 		"@types/which": "3.0.4",
-		"shx": "0.3.4",
+		"shx": "0.4.0",
 		"tsup": "8.4.0"
 	},
 	"exports": {
