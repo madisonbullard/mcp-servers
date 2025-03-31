@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { fileURLToPath } from "node:url";
 import { cli } from "@madisonbullard/mcp-server-tui";
 import { name, version } from "../package.json";
 
@@ -10,8 +9,8 @@ cli({
 	mcpServerName: "shortcut",
 	version,
 	execConfig: {
-		command: "node",
-		args: [fileURLToPath(new URL("./server.js", import.meta.url))],
+		command: "npx",
+		args: ["-y", "@shortcut/mcp"],
 		env: [
 			{
 				label: "Shortcut API token",

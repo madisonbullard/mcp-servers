@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import { useEffect, useState } from "react";
-import which from "which";
 
 type McpConfig<K extends string> = {
 	mcpServers: Record<
@@ -39,7 +38,7 @@ export function useWriteMcpConfig<K extends string>({
 	useEffect(
 		function writeClaudeMCPConfig() {
 			async function createMcpConfigObject() {
-				const cmd = (await which(command)).trim();
+				const cmd = (await command).trim();
 				return {
 					command: supportsEnvObject
 						? cmd

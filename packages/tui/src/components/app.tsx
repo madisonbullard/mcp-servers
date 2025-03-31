@@ -28,9 +28,7 @@ export type AppProps = {
 	 */
 	execConfig: {
 		/**
-		 * This package will resolve the user's absolute path
-		 * to the module referenced here, using `which()`.
-		 * e.g. "node" will resolve to `/user/path/to/node`
+		 * The command to invoke the MCP server.
 		 */
 		command: string;
 		/**

@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
-		"build": "rm -rf dist && tsup src/index.ts src/server.ts --format esm",
+		"build": "rm -rf dist && tsup src/index.ts --format esm",
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
 		"inspector": "bunx @modelcontextprotocol/inspector dist/server.js"
@@ -20,7 +20,6 @@
 	"dependencies": {
 		"@madisonbullard/mcp-server-tui": "workspace:*",
 		"@madisonbullard/mcp-servers-core": "workspace:*",
-		"@madisonbullard/shortcut-api-client": "workspace:*",
 		"@modelcontextprotocol/sdk": "1.8.0"
 	},
 	"devDependencies": {
