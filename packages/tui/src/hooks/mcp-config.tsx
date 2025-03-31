@@ -1,6 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { useEffect, useState } from "react";
+import which from "which";
+
+function getNodePaths(cmdRoot: string) {
+	return {
+		PATH: `${cmdRoot}:/usr/local/bin:/usr/bin:/bin`,
+		NODE_PATH: `${path.dirname(cmdRoot)}/lib/node_modules`,
+	};
+}
 
 type McpConfig<K extends string> = {
 	mcpServers: Record<
@@ -38,15 +46,20 @@ export function useWriteMcpConfig<K extends string>({
 	useEffect(
 		function writeClaudeMCPConfig() {
 			async function createMcpConfigObject() {
-				const cmd = (await command).trim();
+				const cmd = (await which(command)).trim();
+				const nodePathEnvVars = cmd.includes(".nvm")
+					? getNodePaths(cmd.split("/bin")[0] + "/bin")
+					: {};
+				const envWithNodePaths = { ...nodePathEnvVars, ...env };
+
 				return {
 					command: supportsEnvObject
 						? cmd
-						: `env ${Object.entries(env)
+						: `env ${Object.entries(envWithNodePaths)
 								.map(([key, value]) => `${key}=${value}`)
 								.join(" ")} ${cmd}`,
 					args,
-					...(supportsEnvObject ? { env } : {}),
+					...(supportsEnvObject ? { env: envWithNodePaths } : {}),
 				};
 			}
 
