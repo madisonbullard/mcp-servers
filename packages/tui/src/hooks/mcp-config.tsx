@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { useEffect, useState } from "react";
 import which from "which";
+import type { McpConfig } from "../types";
 
 function getNodePaths(cmdRoot: string) {
 	return {
@@ -9,13 +10,6 @@ function getNodePaths(cmdRoot: string) {
 		NODE_PATH: `${path.dirname(cmdRoot)}/lib/node_modules`,
 	};
 }
-
-type McpConfig<K extends string> = {
-	mcpServers: Record<
-		string,
-		{ command: string; args: string[]; env?: Record<K, string> }
-	>;
-};
 
 export function useWriteMcpConfig<K extends string>({
 	env,

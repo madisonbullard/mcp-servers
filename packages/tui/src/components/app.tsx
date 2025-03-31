@@ -3,6 +3,7 @@ import { Box, Newline, Text } from "ink";
 import Link from "ink-link";
 import { useState } from "react";
 import { type Client, clientConfigs } from "../utils/client-configs.js";
+import { getClientConfig } from "../utils/get-client-config.js";
 import HandleConfigCreation, {
 	type HandleConfigCreationProps,
 } from "./handle-config-creation.js";
@@ -81,6 +82,10 @@ export default function App({
 		undefined,
 	);
 
+	const existingClientEnv = selectedClient
+		? getClientConfig(selectedClient, mcpServerName)?.env || {}
+		: {};
+
 	if (selectedClient && !emptyEnvValue) {
 		const configProps: HandleConfigCreationProps<Client> = {
 			command: execConfig.command,
@@ -156,6 +161,7 @@ export default function App({
 						<>
 							<Text>Enter your {emptyEnvLabel}:</Text>
 							<TextInput
+								defaultValue={existingClientEnv[emptyEnvValue]}
 								onSubmit={(value) => setEnv({ ...env, [emptyEnvValue]: value })}
 							/>
 						</>
