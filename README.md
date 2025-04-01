@@ -10,8 +10,10 @@ It also contains MCP servers for various use cases, all installed via the TUI.
 ## Packages
 - `@madisonbullard/mcp-server-tui`: A TUI for installing MCP servers for various clients (Claude Desktop, Cursor, Windsurf, etc.)
 - `@madisonbullard/shortcut-mcp-server`: An MCP server for Shortcut
+- `@madisonbullard/shortcut-mcp-server-installer`: A CLI for installing the Shortcut MCP server
 - `@madisonbullard/shortcut-api-client`: A client for the Shortcut API
 - `@madisonbullard/notion-mcp-server`: An MCP server for Notion
+- `@madisonbullard/notion-mcp-server-installer`: A CLI for installing the Notion MCP server
 - `@madisonbullard/notion-api-client`: A client for the Notion API
 - `@madisonbullard/coderabbit-mcp-server`: An MCP server for Coderabbit
 - `@madisonbullard/coderabbit-api-client`: A client for the Coderabbit API
@@ -23,7 +25,7 @@ It also contains MCP servers for various use cases, all installed via the TUI.
 bun install
 ```
 
-- Build the MCP server and CLI of the server you want to develop:
+- Build the MCP server and CLI of the server you want to develop (this command builds every package in the monorepo):
 ```bash
 bun run build
 ```
@@ -31,12 +33,12 @@ bun run build
 
 - Run the CLI
 ```bash
-bun run packages/shortcut-mcp-server/dist/index.js # or the path to the dist folder of the CLI you want to run
+bun run packages/shortcut-mcp-server-installer/dist/index.js # or the path to the dist folder of the CLI you want to run
 ```
 
 - Run the MCP server
 ```bash
-bun run packages/shortcut-mcp-server/dist/server.js
+bun run packages/shortcut-mcp-server/dist/index.js
 ```
 - The client (e.g. Claude Desktop, Cursor, Windsurf, etc.) will run and connect to the MCP server without the above command, so you usually don't need to run it unless you want to manually make requests to the MCP server.
 
