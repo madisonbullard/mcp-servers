@@ -18,7 +18,6 @@
 		"inspector": "bunx @modelcontextprotocol/inspector dist/index.js"
 	},
 	"dependencies": {
-		"@madisonbullard/mcp-server-tui": "workspace:*",
 		"@madisonbullard/mcp-servers-core": "workspace:*",
 		"@madisonbullard/notion-api-client": "workspace:*",
 		"@modelcontextprotocol/sdk": "1.8.0",
