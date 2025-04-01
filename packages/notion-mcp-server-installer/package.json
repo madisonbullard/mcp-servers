@@ -1,5 +1,5 @@
 {
-	"name": "@madisonbullard/shortcut-mcp-server-installer",
+	"name": "@madisonbullard/notion-mcp-server-installer",
 	"version": "1.13.0",
 	"type": "module",
 	"main": "dist/index.js",
@@ -7,7 +7,7 @@
 	"files": ["dist", "README.md"],
 	"access": "public",
 	"bin": {
-		"shortcut-mcp-server-installer": "dist/index.js"
+		"notion-mcp-server-installer": "./dist/index.js"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
