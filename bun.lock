@@ -69,6 +69,20 @@
         "tsup": "8.4.0",
       },
     },
+    "packages/notion-mcp-server-installer": {
+      "name": "@madisonbullard/notion-mcp-server-installer",
+      "version": "1.13.0",
+      "bin": {
+        "notion-mcp-server-installer": "./dist/index.js",
+      },
+      "dependencies": {
+        "@madisonbullard/mcp-server-tui": "workspace:*",
+      },
+      "devDependencies": {
+        "shx": "0.4.0",
+        "tsup": "8.4.0",
+      },
+    },
     "packages/scripts": {
       "name": "@madisonbullard/mcp-servers-scripts",
       "version": "0.0.0",
@@ -87,12 +101,10 @@
       "name": "@madisonbullard/shortcut-mcp-server-installer",
       "version": "1.13.0",
       "bin": {
-        "shortcut-mcp-server": "dist/index.js",
+        "shortcut-mcp-server-installer": "dist/index.js",
       },
       "dependencies": {
         "@madisonbullard/mcp-server-tui": "workspace:*",
-        "@madisonbullard/mcp-servers-core": "workspace:*",
-        "@modelcontextprotocol/sdk": "1.8.0",
       },
       "devDependencies": {
         "shx": "0.4.0",
@@ -219,6 +231,8 @@
     "@madisonbullard/notion-api-client": ["@madisonbullard/notion-api-client@workspace:packages/notion-api-client"],
 
     "@madisonbullard/notion-mcp-server": ["@madisonbullard/notion-mcp-server@workspace:packages/notion-mcp-server"],
+
+    "@madisonbullard/notion-mcp-server-installer": ["@madisonbullard/notion-mcp-server-installer@workspace:packages/notion-mcp-server-installer"],
 
     "@madisonbullard/shortcut-mcp-server-installer": ["@madisonbullard/shortcut-mcp-server-installer@workspace:packages/shortcut-mcp-server-installer"],
 
