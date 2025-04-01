@@ -6,7 +6,7 @@ import { name, version } from "../package.json";
 cli({
 	packageName: name.replace("@madisonbullard/", ""),
 	serviceNameHumanReadable: "Shortcut",
-	mcpServerName: "shortcut",
+	mcpServerName: "@shortcut/mcp",
 	version,
 	execConfig: {
 		command: "npx",

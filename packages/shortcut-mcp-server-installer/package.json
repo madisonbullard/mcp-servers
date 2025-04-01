@@ -1,5 +1,5 @@
 {
-	"name": "@madisonbullard/shortcut-mcp-server",
+	"name": "@madisonbullard/shortcut-mcp-server-installer",
 	"version": "1.13.0",
 	"type": "module",
 	"main": "dist/index.js",
