@@ -1,0 +1,32 @@
+{
+	"name": "@madisonbullard/slack-mcp-server",
+	"version": "1.14.1",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist", "README.md"],
+	"access": "public",
+	"bin": {
+		"slack-mcp-server": "./dist/index.js"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts --format esm",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"inspector": "bunx @modelcontextprotocol/inspector dist/index.js"
+	},
+	"dependencies": {
+		"@madisonbullard/mcp-servers-core": "workspace:*",
+		"@modelcontextprotocol/sdk": "1.8.0",
+		"zod": "3.24.2"
+	},
+	"devDependencies": {
+		"shx": "0.4.0",
+		"tsup": "8.4.0"
+	},
+	"engines": {
+		"node": ">=16.17.0"
+	}
+}

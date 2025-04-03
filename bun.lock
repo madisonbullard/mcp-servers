@@ -110,6 +110,22 @@
         "tsup": "8.4.0",
       },
     },
+    "packages/slack-mcp-server": {
+      "name": "@madisonbullard/slack-mcp-server",
+      "version": "1.14.1",
+      "bin": {
+        "slack-mcp-server": "./dist/index.js",
+      },
+      "dependencies": {
+        "@madisonbullard/mcp-servers-core": "workspace:*",
+        "@modelcontextprotocol/sdk": "1.8.0",
+        "zod": "3.24.2",
+      },
+      "devDependencies": {
+        "shx": "0.4.0",
+        "tsup": "8.4.0",
+      },
+    },
     "packages/tui": {
       "name": "@madisonbullard/mcp-server-tui",
       "version": "1.14.1",
@@ -234,6 +250,8 @@
     "@madisonbullard/notion-mcp-server-installer": ["@madisonbullard/notion-mcp-server-installer@workspace:packages/notion-mcp-server-installer"],
 
     "@madisonbullard/shortcut-mcp-server-installer": ["@madisonbullard/shortcut-mcp-server-installer@workspace:packages/shortcut-mcp-server-installer"],
+
+    "@madisonbullard/slack-mcp-server": ["@madisonbullard/slack-mcp-server@workspace:packages/slack-mcp-server"],
 
     "@modelcontextprotocol/sdk": ["@modelcontextprotocol/sdk@1.8.0", "", { "dependencies": { "content-type": "^1.0.5", "cors": "^2.8.5", "cross-spawn": "^7.0.3", "eventsource": "^3.0.2", "express": "^5.0.1", "express-rate-limit": "^7.5.0", "pkce-challenge": "^4.1.0", "raw-body": "^3.0.0", "zod": "^3.23.8", "zod-to-json-schema": "^3.24.1" } }, "sha512-e06W7SwrontJDHwCawNO5SGxG+nU9AAx+jpHHZqGl/WrDBdWOpvirC+s58VpJTB5QemI4jTRcjWT4Pt3Q1NPQQ=="],
 
