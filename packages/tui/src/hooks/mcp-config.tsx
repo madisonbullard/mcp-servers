@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 import which from "which";
 import type { McpConfig } from "../types";
 
-function getNodePaths(cmdRoot: string) {
-	return {
-		PATH: `${cmdRoot}:/usr/local/bin:/usr/bin:/bin`,
-		NODE_PATH: `${path.dirname(cmdRoot)}/lib/node_modules`,
-	};
+function getNodePaths(cmd: string) {
+	if (cmd.includes(".nvm") || cmd.includes("homebrew")) {
+		const cmdRoot = cmd.split("/bin")[0] + "/bin";
+
+		return {
+			PATH: `${cmdRoot}:/usr/local/bin:/usr/bin:/bin`,
+			NODE_PATH: `${path.dirname(cmdRoot)}/lib/node_modules`,
+		};
+	}
 }
 
 export function useWriteMcpConfig<K extends string>({
@@ -41,9 +45,7 @@ export function useWriteMcpConfig<K extends string>({
 		function writeClaudeMCPConfig() {
 			async function createMcpConfigObject() {
 				const cmd = (await which(command)).trim();
-				const nodePathEnvVars = cmd.includes(".nvm")
-					? getNodePaths(cmd.split("/bin")[0] + "/bin")
-					: {};
+				const nodePathEnvVars = getNodePaths(cmd) || {};
 				const envWithNodePaths = { ...nodePathEnvVars, ...env };
 
 				return {
