@@ -5,7 +5,6 @@ import { notionSdkClient } from "../notion/client";
 import { markdownToBlocks } from "../notion/markdownToBlocks";
 import { NotionDatabasePropertySchema } from "../notion/zod/NotionDatabaseSchema.js";
 
-// Define the parameter schema
 const createPageSchema = {
 	parentPageId: z
 		.string()
