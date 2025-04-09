@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { cli } from "@madisonbullard/mcp-server-tui";
-import { name, version } from "../package.json";
+import { version } from "../package.json";
 
 cli({
-	packageName: name.replace("@madisonbullard/", ""),
+	packageName: "slack-mcp-server",
 	serviceNameHumanReadable: "Slack",
 	mcpServerName: "slack",
 	version,

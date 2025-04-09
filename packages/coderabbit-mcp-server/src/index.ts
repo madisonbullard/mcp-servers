@@ -2,10 +2,10 @@
 
 import { fileURLToPath } from "node:url";
 import { cli } from "@madisonbullard/mcp-server-tui";
-import { name, version } from "../package.json";
+import { version } from "../package.json";
 
 cli({
-	packageName: name.replace("@madisonbullard/", ""),
+	packageName: "coderabbit-mcp-server",
 	serviceNameHumanReadable: "CodeRabbit",
 	mcpServerName: "coderabbit",
 	version,

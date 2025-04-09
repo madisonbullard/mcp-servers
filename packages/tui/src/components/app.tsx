@@ -155,7 +155,7 @@ export default function App({
 				<>
 					<Text color="blue">
 						Configuring <Text color="yellow">{packageName}</Text> for use with{" "}
-						<Text color="yellow">{selectedClient}</Text>.
+						<Text color="yellow">{clientConfigs[selectedClient].label}</Text>.
 					</Text>
 					{emptyEnvValue && (
 						<>
