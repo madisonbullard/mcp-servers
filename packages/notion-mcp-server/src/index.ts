@@ -17,6 +17,21 @@ const server = new McpServer({
 	version,
 });
 
+const toolDescriptions: Record<
+	string,
+	Partial<Record<"get" | "post" | "patch" | "delete", string>>
+> = {
+	"/v1/pages/{page_id}/properties/{property_id}": {
+		get: "Retrieve a page property's value",
+	},
+	"/v1/blocks/{id}/children": {
+		get: "Retrieve a block's children. This is the tool for retrieving the contents of a Notion page.",
+	},
+	"/v1/blocks/{id}": {
+		get: "Retrieve the contents of one Notion block.",
+	},
+};
+
 function getEndpointInfo(
 	method: "get" | "post" | "patch" | "delete",
 	path: string,
@@ -36,18 +51,27 @@ function getEndpointInfo(
 				.replaceAll("’", "")
 				.replaceAll("(", "")
 				.replaceAll(")", "") || "",
-		description: endpoint?.description || "",
+		description:
+			toolDescriptions[path]?.[method] || endpoint?.description || "",
 	};
 }
 
 // Paths that will be handled by the Notion SDK rather than the OpenAPI client,
 // because the OpenAPI definitions are incorrect/incomplete for these paths
-const customToolsMap = {
-	"/v1/pages/": createPage,
-	"/v1/blocks/{id}/children": updatePageContent,
-	"/v1/blocks/{id}": null,
+const customToolsMap: Record<
+	string,
+	Partial<
+		Record<
+			"get" | "post" | "patch" | "delete",
+			((server: McpServer) => void) | null
+		>
+	>
+> = {
+	"/v1/pages/": { post: createPage },
+	"/v1/blocks/{id}/children": { patch: updatePageContent },
+	// Use null to skip registration, rather than replacing with a custom tool
+	"/v1/blocks/{id}": { patch: null, delete: null },
 };
-const pathsWithCustomTools = Object.keys(customToolsMap);
 
 /**
  * Helper function to register tools for each HTTP method and endpoint
@@ -62,7 +86,7 @@ function registerToolsFromOpenapiSchema<
 	for (const [path, endpoint] of Object.entries(endpoints)) {
 		const { summary, description } = getEndpointInfo(method, path);
 
-		if (pathsWithCustomTools.includes(path)) {
+		if (customToolsMap[path]?.[method] !== undefined) {
 			continue;
 		}
 
@@ -116,8 +140,10 @@ function registerToolsFromOpenapiSchema<
 // Only register GET endpoints from the openapi schema because the other endpoints have broken schema definitions
 registerToolsFromOpenapiSchema("get", EndpointByMethod.get);
 
-for (const registerToolFn of Object.values(customToolsMap)) {
-	registerToolFn?.(server);
+for (const endpointOverrideConfig of Object.values(customToolsMap)) {
+	for (const registerToolFn of Object.values(endpointOverrideConfig)) {
+		registerToolFn?.(server);
+	}
 }
 
 // Start server
