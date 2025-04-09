@@ -3,13 +3,18 @@ import type { ConversationsHistoryResponse } from "@slack/web-api";
 import { z } from "zod";
 import { client } from "../slack/client.js";
 
+function getTimestampFromMessageId(messageId: string) {
+	const timestampString = messageId.substring(1);
+	const decimalPosition = timestampString.length - 6;
+	return (
+		timestampString.slice(0, decimalPosition) +
+		"." +
+		timestampString.slice(decimalPosition)
+	);
+}
+
 const getMessageContextSchema = {
-	messageId: z
-		.string()
-		.describe("The ID of the Slack message to get context for"),
-	channelId: z
-		.string()
-		.describe("The ID of the channel where the message was posted"),
+	link: z.string().describe("The URL of the Slack message to get context for"),
 };
 
 export function getMessageContext(server: McpServer) {
@@ -17,7 +22,15 @@ export function getMessageContext(server: McpServer) {
 		"Get-Message-Context",
 		"Get the surrounding context of a Slack message. This tool will fetch the entire thread, if the message is part of a thread. Otherwise it will return the surrounding messages from the channel the message was posted in.",
 		getMessageContextSchema,
-		async ({ messageId, channelId }) => {
+		async ({ link }) => {
+			const url = new URL(link);
+			const params = url.searchParams;
+			const urlParts = url.pathname.split("/");
+
+			const channelId = params.get("cid") || urlParts[2];
+			const messageId =
+				params.get("thread_ts") || getTimestampFromMessageId(urlParts[3]);
+
 			try {
 				// First, get the message to check if it's part of a thread
 				const messageResponse = await client.conversations.history({
