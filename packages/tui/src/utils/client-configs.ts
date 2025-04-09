@@ -21,7 +21,7 @@ export const clientConfigs = {
 		value: "cursor",
 		configFilePath: path.join(process.cwd(), ".cursor", "mcp.json"),
 		createConfigFileIfNotExists: true,
-		configSupportsEnvObject: false,
+		configSupportsEnvObject: true,
 		postscript:
 			"To enable the MCP server, go to Settings > Cursor Settings > MCP and click 'Enable'",
 	},
