@@ -12,6 +12,7 @@ export const clientConfigs = {
 			"Claude",
 			"claude_desktop_config.json",
 		),
+		localConfigFilePath: null,
 		createConfigFileIfNotExists: false,
 		configSupportsEnvObject: true,
 		postscript: null,
@@ -19,7 +20,8 @@ export const clientConfigs = {
 	cursor: {
 		label: "Cursor",
 		value: "cursor",
-		configFilePath: path.join(process.cwd(), ".cursor", "mcp.json"),
+		configFilePath: path.join(os.homedir(), ".cursor", "mcp.json"),
+		localConfigFilePath: path.join(process.cwd(), ".cursor", "mcp.json"),
 		createConfigFileIfNotExists: true,
 		configSupportsEnvObject: true,
 		postscript:
@@ -34,6 +36,7 @@ export const clientConfigs = {
 			"windsurf",
 			"mcp_config.json",
 		),
+		localConfigFilePath: null,
 		createConfigFileIfNotExists: false,
 		configSupportsEnvObject: true,
 		postscript: null,

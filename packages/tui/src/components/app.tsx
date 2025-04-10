@@ -4,10 +4,7 @@ import Link from "ink-link";
 import { useState } from "react";
 import { type Client, clientConfigs } from "../utils/client-configs.js";
 import { getClientConfig } from "../utils/get-client-config.js";
-import HandleConfigCreation, {
-	type HandleConfigCreationProps,
-} from "./handle-config-creation.js";
-import { HandleCursorConfig } from "./handle-cursor-config.js";
+import { ConfigCreation } from "./config-creation.js";
 import SelectClient from "./select-client.js";
 
 export type AppProps = {
@@ -86,33 +83,6 @@ export default function App({
 		? getClientConfig(selectedClient, mcpServerName)?.env || {}
 		: {};
 
-	if (selectedClient && !emptyEnvValue) {
-		const configProps: HandleConfigCreationProps<Client> = {
-			command: execConfig.command,
-			args: execConfig.args,
-			env: env || {},
-			configFilePath: clientConfigs[selectedClient].configFilePath,
-			mcpServerName,
-			clientName: selectedClient,
-			packageName,
-			serviceNameHumanReadable,
-			createIfNotExists:
-				clientConfigs[selectedClient].createConfigFileIfNotExists,
-			supportsEnvObject: clientConfigs[selectedClient].configSupportsEnvObject,
-			postscript: clientConfigs[selectedClient].postscript,
-		};
-
-		switch (selectedClient) {
-			case "claude":
-			case "windsurf":
-				return <HandleConfigCreation {...configProps} />;
-			case "cursor":
-				return <HandleCursorConfig {...configProps} />;
-			default:
-				return null;
-		}
-	}
-
 	return (
 		<>
 			<Box
@@ -157,7 +127,7 @@ export default function App({
 						Configuring <Text color="yellow">{packageName}</Text> for use with{" "}
 						<Text color="yellow">{clientConfigs[selectedClient].label}</Text>.
 					</Text>
-					{emptyEnvValue && (
+					{emptyEnvValue ? (
 						<>
 							<Text>Enter your {emptyEnvLabel}:</Text>
 							<TextInput
@@ -165,6 +135,15 @@ export default function App({
 								onSubmit={(value) => setEnv({ ...env, [emptyEnvValue]: value })}
 							/>
 						</>
+					) : (
+						<ConfigCreation
+							selectedClient={selectedClient}
+							execConfig={execConfig}
+							env={env}
+							mcpServerName={mcpServerName}
+							packageName={packageName}
+							serviceNameHumanReadable={serviceNameHumanReadable}
+						/>
 					)}
 				</>
 			)}

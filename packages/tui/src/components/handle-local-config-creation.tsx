@@ -1,15 +1,17 @@
 import { Select } from "@inkjs/ui";
 import { Text } from "ink";
 import { useState } from "react";
+import { clientConfigs } from "../utils/client-configs";
 import HandleConfigCreation, {
 	type HandleConfigCreationProps,
 } from "./handle-config-creation";
 
-export function HandleCursorConfig<K extends string>({
+export function HandleLocalConfigCreation<K extends string>({
 	command,
 	args,
 	env,
 	configFilePath,
+	localConfigFilePath,
 	mcpServerName,
 	clientName,
 	packageName,
@@ -17,18 +19,40 @@ export function HandleCursorConfig<K extends string>({
 	createIfNotExists,
 	supportsEnvObject,
 	postscript,
-}: HandleConfigCreationProps<K>) {
+}: HandleConfigCreationProps<K> & { localConfigFilePath: string | null }) {
+	const [installScope, setInstallScope] = useState<"global" | "local" | null>(
+		null,
+	);
+
 	const [isThisCorrectProjectDir, setIsThisCorrectProjectDir] = useState<
 		"yes" | "no" | null
 	>(null);
 
-	if (!isThisCorrectProjectDir) {
+	if (!installScope) {
 		return (
 			<>
 				<Text>
-					The Cursor MCP server config needs to be added to the root of the
-					project directory in which you want to use the server. Is this the
-					correct directory?{"\n"}
+					Would you like to install globally, for all{" "}
+					{clientConfigs[clientName].label} projects? Or locally, for a specific
+					project?
+				</Text>
+				<Select
+					options={[
+						{ label: "Global", value: "global" },
+						{ label: "Local", value: "local" },
+					]}
+					onChange={(option) => setInstallScope(option as "global" | "local")}
+				/>
+			</>
+		);
+	}
+
+	if (!isThisCorrectProjectDir && installScope === "local") {
+		return (
+			<>
+				<Text>
+					Is this the project directory in which you want to install the MCP
+					server?{"\n"}
 					<Text color="yellow">{process.cwd()}</Text>
 				</Text>
 				<Select
@@ -43,6 +67,7 @@ export function HandleCursorConfig<K extends string>({
 			</>
 		);
 	}
+
 	if (isThisCorrectProjectDir === "no") {
 		return (
 			<Text>
@@ -51,12 +76,17 @@ export function HandleCursorConfig<K extends string>({
 			</Text>
 		);
 	}
+
 	return (
 		<HandleConfigCreation
 			command={command}
 			args={args}
 			env={env || {}}
-			configFilePath={configFilePath}
+			configFilePath={
+				installScope === "local" && localConfigFilePath
+					? localConfigFilePath
+					: configFilePath
+			}
 			mcpServerName={mcpServerName}
 			clientName={clientName}
 			packageName={packageName}

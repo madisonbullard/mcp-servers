@@ -1,6 +1,7 @@
 import path from "node:path";
 import { Newline, Text } from "ink";
 import { useWriteMcpConfig } from "../hooks/mcp-config";
+import type { Client } from "../utils/client-configs";
 
 export type HandleConfigCreationProps<K extends string> = {
 	command: string;
@@ -8,7 +9,7 @@ export type HandleConfigCreationProps<K extends string> = {
 	env: Record<K, string>;
 	configFilePath: string;
 	mcpServerName: string;
-	clientName: string;
+	clientName: Client;
 	serviceNameHumanReadable: string;
 	createIfNotExists: boolean;
 	packageName: string;

@@ -8,8 +8,6 @@
 	"files": {
 		"ignoreUnknown": false,
 		"ignore": [
-			"packages/shortcut-api-client/src/index.ts",
-			"packages/shortcut-api-client/src/public/openapi.json",
 			"packages/notion-api-client/assets",
 			"packages/notion-api-client/src/index.ts",
 			"packages/notion-api-client/src/public/openapi.json",
