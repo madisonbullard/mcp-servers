@@ -62,31 +62,35 @@ export function isGitHubError(error: unknown): error is GitHubError {
 
 export function createGitHubError(
 	status: number,
-	response: Record<string, string>,
+	response: Record<string, unknown>,
 ): GitHubError {
 	switch (status) {
 		case 401:
-			return new GitHubAuthenticationError(response?.message);
+			return new GitHubAuthenticationError(response?.message as string);
 		case 403:
-			return new GitHubPermissionError(response?.message);
+			return new GitHubPermissionError(response?.message as string);
 		case 404:
-			return new GitHubResourceNotFoundError(response?.message || "Resource");
+			return new GitHubResourceNotFoundError(
+				(response?.message as string) || "Resource",
+			);
 		case 409:
-			return new GitHubConflictError(response?.message || "Conflict occurred");
+			return new GitHubConflictError(
+				(response?.message as string) || "Conflict occurred",
+			);
 		case 422:
 			return new GitHubValidationError(
-				response?.message || "Validation failed",
+				(response?.message as string) || "Validation failed",
 				status,
 				response,
 			);
 		case 429:
 			return new GitHubRateLimitError(
-				new Date(response?.reset_at || Date.now() + 60000),
-				response?.message,
+				new Date((response?.reset_at as string) || Date.now() + 60000),
+				response?.message as string,
 			);
 		default:
 			return new GitHubError(
-				response?.message || "GitHub API error",
+				(response?.message as string) || "GitHub API error",
 				status,
 				response,
 			);

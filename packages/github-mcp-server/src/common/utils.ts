@@ -8,7 +8,9 @@ type RequestOptions = {
 	headers?: Record<string, string>;
 };
 
-async function parseResponseBody(response: Response): Promise<unknown> {
+async function parseResponseBody(
+	response: Response,
+): Promise<string | Record<string, unknown>> {
 	const contentType = response.headers.get("content-type");
 	if (contentType?.includes("application/json")) {
 		return response.json();
@@ -55,6 +57,9 @@ export async function githubRequest(
 	const responseBody = await parseResponseBody(response);
 
 	if (!response.ok) {
+		if (typeof responseBody === "string") {
+			throw createGitHubError(response.status, { message: responseBody });
+		}
 		throw createGitHubError(response.status, responseBody);
 	}
 
