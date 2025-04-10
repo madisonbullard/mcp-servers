@@ -1,0 +1,28 @@
+{
+	"name": "@madisonbullard/github-mcp-server-installer",
+	"version": "1.18.0",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"files": ["dist", "README.md"],
+	"access": "public",
+	"bin": {
+		"github-mcp-server-installer": "./dist/index.js"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts --format esm",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch"
+	},
+	"dependencies": {
+		"@madisonbullard/mcp-server-tui": "workspace:*"
+	},
+	"devDependencies": {
+		"shx": "0.4.0",
+		"tsup": "8.4.0"
+	},
+	"engines": {
+		"node": ">=16.17.0"
+	}
+}
