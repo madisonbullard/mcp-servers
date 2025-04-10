@@ -60,6 +60,20 @@
         "tsup": "8.4.0",
       },
     },
+    "packages/github-mcp-server-installer": {
+      "name": "@madisonbullard/github-mcp-server-installer",
+      "version": "1.18.0",
+      "bin": {
+        "github-mcp-server-installer": "./dist/index.js",
+      },
+      "dependencies": {
+        "@madisonbullard/mcp-server-tui": "workspace:*",
+      },
+      "devDependencies": {
+        "shx": "0.4.0",
+        "tsup": "8.4.0",
+      },
+    },
     "packages/notion-api-client": {
       "name": "@madisonbullard/notion-api-client",
       "version": "1.18.0",
@@ -273,6 +287,8 @@
     "@madisonbullard/coderabbit-mcp-server": ["@madisonbullard/coderabbit-mcp-server@workspace:packages/coderabbit-mcp-server"],
 
     "@madisonbullard/github-mcp-server": ["@madisonbullard/github-mcp-server@workspace:packages/github-mcp-server"],
+
+    "@madisonbullard/github-mcp-server-installer": ["@madisonbullard/github-mcp-server-installer@workspace:packages/github-mcp-server-installer"],
 
     "@madisonbullard/mcp-server-tui": ["@madisonbullard/mcp-server-tui@workspace:packages/tui"],
 
