@@ -1,0 +1,38 @@
+{
+  "name": "@madisonbullard/github-mcp-server",
+  "version": "1.18.0",
+  "description": "MCP server for using the GitHub API",
+  "license": "MIT",
+  "author": "Madison Bullard",
+  "homepage": "https://github.com/madisonbullard/mcp-servers",
+  "bugs": "https://github.com/madisonbullard/mcp-servers/issues",
+  "type": "module",
+  "bin": {
+    "github-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && tsup src/index.ts --format esm",
+		"postbuild": "shx chmod +x dist/*.js",
+		"build:watch": "bun run build --watch",
+		"inspector": "bunx @modelcontextprotocol/inspector dist/index.js"
+  },
+  "dependencies": {
+		"@modelcontextprotocol/sdk": "1.9.0",
+    "@types/node-fetch": "2.6.12",
+    "node-fetch": "3.3.2",
+    "universal-user-agent": "7.0.2",
+    "zod": "3.24.2",
+    "zod-to-json-schema": "3.24.5"
+  },
+	"devDependencies": {
+		"shx": "0.4.0",
+		"tsup": "8.4.0"
+	},
+  "engines": {
+		"node": ">=16.17.0"
+	}
+}

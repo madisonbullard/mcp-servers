@@ -21,7 +21,7 @@
 		"@madisonbullard/coderabbit-api-client": "workspace:*",
 		"@madisonbullard/mcp-server-tui": "workspace:*",
 		"@madisonbullard/mcp-servers-core": "workspace:*",
-		"@modelcontextprotocol/sdk": "1.8.0"
+		"@modelcontextprotocol/sdk": "1.9.0"
 	},
 	"devDependencies": {
 		"shx": "0.4.0",
