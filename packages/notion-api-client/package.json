@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/notion-api-client",
-	"version": "1.17.3",
+	"version": "y",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"devDependencies": {

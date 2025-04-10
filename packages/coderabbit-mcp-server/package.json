@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/coderabbit-mcp-server",
-	"version": "1.17.3",
+	"version": "y",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
