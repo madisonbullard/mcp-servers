@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/slack-mcp-server",
-	"version": "y",
+	"version": "1.17.3",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
