@@ -13,7 +13,7 @@ export const clientConfigs = {
 			"claude_desktop_config.json",
 		),
 		localConfigFilePath: null,
-		createConfigFileIfNotExists: false,
+		createConfigFileIfNotExists: true,
 		configSupportsEnvObject: true,
 		postscript: null,
 	},
