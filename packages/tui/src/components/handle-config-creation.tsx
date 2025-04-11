@@ -1,7 +1,7 @@
 import path from "node:path";
 import { Newline, Text } from "ink";
 import { useWriteMcpConfig } from "../hooks/mcp-config";
-import type { Client } from "../utils/client-configs";
+import { type Client, clientConfigs } from "../utils/client-configs";
 
 export type HandleConfigCreationProps<K extends string> = {
 	command: string;
@@ -40,6 +40,8 @@ export default function HandleConfigCreation<K extends string>({
 		supportsEnvObject,
 	});
 
+	const clientLabel = clientConfigs[clientName].label;
+
 	return (
 		<>
 			<Text>Looking for existing config in: </Text>
@@ -49,7 +51,7 @@ export default function HandleConfigCreation<K extends string>({
 				(createIfNotExists ? (
 					<>
 						<Text>
-							Existing {clientName} config not found. Creating the file at path{" "}
+							Existing {clientLabel} config not found. Creating the file at path{" "}
 							<Text color="yellow">{configFilePath}</Text>.
 						</Text>
 						<Newline />
@@ -57,7 +59,7 @@ export default function HandleConfigCreation<K extends string>({
 				) : (
 					<>
 						<Text>
-							Couldn't detect {clientName} config at {configFilePath}.{"\n"}To
+							Couldn't detect {clientLabel} config at {configFilePath}.{"\n"}To
 							add the {serviceNameHumanReadable} MCP server manually, add the
 							following config to your{" "}
 							<Text color="yellow">{configFilePath.split("/").pop()}</Text>{" "}
@@ -69,7 +71,7 @@ export default function HandleConfigCreation<K extends string>({
 						<Text>
 							If you copy/paste the above config, make sure to format the pasted
 							content correctly (remove any unnecessary line breaks) so $
-							{clientName} can read the JSON file.
+							{clientLabel} can read the JSON file.
 						</Text>
 						<Newline />
 					</>
@@ -90,7 +92,7 @@ export default function HandleConfigCreation<K extends string>({
 				<>
 					<Text>
 						<Text color="yellow">{packageName}</Text> configured & added to{" "}
-						{clientName}!
+						{clientLabel}!
 					</Text>
 					<Newline />
 					<Text>
