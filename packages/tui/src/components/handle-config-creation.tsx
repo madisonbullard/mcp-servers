@@ -42,9 +42,6 @@ export default function HandleConfigCreation<K extends string>({
 
 	return (
 		<>
-			<Text>Configuring {clientName}</Text>
-			<Text>Step 1 of 1</Text>
-			<Newline />
 			<Text>Looking for existing config in: </Text>
 			<Text color="yellow">{path.dirname(configFilePath)}</Text>
 			<Newline />

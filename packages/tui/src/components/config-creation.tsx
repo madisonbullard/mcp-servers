@@ -1,3 +1,4 @@
+import { Newline, Text } from "ink";
 import { type Client, clientConfigs } from "../utils/client-configs";
 import HandleConfigCreation, {
 	type HandleConfigCreationProps,
@@ -11,6 +12,8 @@ export function ConfigCreation({
 	mcpServerName,
 	packageName,
 	serviceNameHumanReadable,
+	currentStep,
+	totalSteps,
 }: {
 	selectedClient: Client;
 	execConfig: {
@@ -21,6 +24,8 @@ export function ConfigCreation({
 	mcpServerName: string;
 	packageName: string;
 	serviceNameHumanReadable: string;
+	currentStep: number;
+	totalSteps: number;
 }) {
 	const configProps: HandleConfigCreationProps<Client> = {
 		command: execConfig.command,
@@ -37,20 +42,31 @@ export function ConfigCreation({
 		postscript: clientConfigs[selectedClient].postscript,
 	};
 
-	switch (selectedClient) {
-		case "claude":
-		case "windsurf":
-			return <HandleConfigCreation {...configProps} />;
-		case "cursor":
-			return (
-				<HandleLocalConfigCreation
-					{...configProps}
-					localConfigFilePath={
-						clientConfigs[selectedClient].localConfigFilePath
-					}
-				/>
-			);
-		default:
-			return null;
-	}
+	return (
+		<>
+			<Text>Configuring {selectedClient}</Text>
+			<Text>
+				Step {currentStep} of {totalSteps}
+			</Text>
+			<Newline />
+			{(() => {
+				switch (selectedClient) {
+					case "claude":
+					case "windsurf":
+						return <HandleConfigCreation {...configProps} />;
+					case "cursor":
+						return (
+							<HandleLocalConfigCreation
+								{...configProps}
+								localConfigFilePath={
+									clientConfigs[selectedClient].localConfigFilePath
+								}
+							/>
+						);
+					default:
+						return null;
+				}
+			})()}
+		</>
+	);
 }

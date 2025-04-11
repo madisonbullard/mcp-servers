@@ -68,20 +68,24 @@ export default function App({
 		{},
 	);
 	const [env, setEnv] = useState(initialEnv);
+	const [selectedClients, setSelectedClients] = useState<Client[]>([]);
+	const [currentClientIndex, setCurrentClientIndex] = useState<number>(0);
+	const [completedClients, setCompletedClients] = useState<Client[]>([]);
+
+	const currentClient =
+		currentClientIndex !== null && currentClientIndex < selectedClients.length
+			? selectedClients[currentClientIndex]
+			: null;
+	const existingClientEnv = currentClient
+		? getClientConfig(currentClient, mcpServerName)?.env || {}
+		: {};
+
 	const emptyEnvValue = Object.entries(env || {}).find(
 		([_, value]) => value === "",
 	)?.[0];
 	const emptyEnvLabel = execConfig.env?.find(
 		(e) => e.value === emptyEnvValue,
 	)?.label;
-
-	const [selectedClient, setSelectedClient] = useState<Client | undefined>(
-		undefined,
-	);
-
-	const existingClientEnv = selectedClient
-		? getClientConfig(selectedClient, mcpServerName)?.env || {}
-		: {};
 
 	return (
 		<>
@@ -114,19 +118,42 @@ export default function App({
 				<Text>Let's get started.</Text>
 			</Box>
 			<Newline />
-			{!selectedClient ? (
+			{selectedClients.length === 0 ? (
 				<>
-					<Text>Which client are you integrating with?</Text>
+					<Text>Which clients are you integrating with?</Text>
 					<SelectClient
-						onChange={(value) => setSelectedClient(value as Client)}
+						onChange={(values) => {
+							if (values.length > 0) {
+								setSelectedClients(values);
+								setCurrentClientIndex(0);
+							}
+						}}
 					/>
 				</>
-			) : (
+			) : currentClient ? (
 				<>
 					<Text color="blue">
 						Configuring <Text color="yellow">{packageName}</Text> for use with{" "}
-						<Text color="yellow">{clientConfigs[selectedClient].label}</Text>.
+						<Text color="yellow">{clientConfigs[currentClient].label}</Text>
+						{selectedClients.length > 1 && (
+							<Text>
+								{" "}
+								(Client {currentClientIndex + 1} of {selectedClients.length})
+							</Text>
+						)}
 					</Text>
+					{completedClients.length > 0 && (
+						<>
+							<Newline />
+							<Text color="green">Completed clients:</Text>
+							{completedClients.map((client) => (
+								<Text key={client} color="green">
+									✓ {client}
+								</Text>
+							))}
+							<Newline />
+						</>
+					)}
 					{emptyEnvValue ? (
 						<>
 							<Text>Enter your {emptyEnvLabel}:</Text>
@@ -136,16 +163,67 @@ export default function App({
 							/>
 						</>
 					) : (
-						<ConfigCreation
-							selectedClient={selectedClient}
-							execConfig={execConfig}
-							env={env}
-							mcpServerName={mcpServerName}
-							packageName={packageName}
-							serviceNameHumanReadable={serviceNameHumanReadable}
-						/>
+						<>
+							<ConfigCreation
+								selectedClient={currentClient}
+								execConfig={execConfig}
+								env={env}
+								mcpServerName={mcpServerName}
+								packageName={packageName}
+								serviceNameHumanReadable={serviceNameHumanReadable}
+								currentStep={currentClientIndex + 1}
+								totalSteps={selectedClients.length}
+							/>
+							{currentClientIndex < selectedClients.length - 1 && (
+								<Box marginTop={1}>
+									<Text>
+										Press Enter to add another client:{" "}
+										<Text color="yellow">
+											{
+												clientConfigs[selectedClients[currentClientIndex + 1]]
+													.label
+											}
+										</Text>
+									</Text>
+									<TextInput
+										defaultValue=""
+										onSubmit={() => {
+											setCompletedClients([...completedClients, currentClient]);
+											if (currentClientIndex + 1 < selectedClients.length) {
+												setCurrentClientIndex(currentClientIndex + 1);
+											} else {
+												// Set to a value outside the array bounds to indicate completion
+												setCurrentClientIndex(selectedClients.length);
+											}
+											setEnv(initialEnv || {});
+										}}
+									/>
+								</Box>
+							)}
+							{currentClientIndex === selectedClients.length - 1 && (
+								<Box marginTop={1}>
+									<Text color="green">
+										All clients configured successfully!
+									</Text>
+								</Box>
+							)}
+						</>
 					)}
 				</>
+			) : currentClientIndex >= selectedClients.length &&
+				completedClients.length > 0 ? (
+				<>
+					<Text color="green">All clients configured successfully!</Text>
+					<Newline />
+					<Text color="green">Completed clients:</Text>
+					{completedClients.map((client) => (
+						<Text key={client} color="green">
+							✓ {client}
+						</Text>
+					))}
+				</>
+			) : (
+				<Text>Loading client configuration...</Text>
 			)}
 		</>
 	);
