@@ -1,0 +1,26 @@
+{
+	"name": "remote-mcp",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "Remote MCP server using Streamable HTTP transport for AWS Lambda.",
+	"main": "dist/lambda.js",
+	"types": "dist/lambda.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"@aws-sdk/client-lambda": "3.804.0",
+		"@hono/zod-openapi": "0.19.6",
+		"@modelcontextprotocol/sdk": "1.11.0",
+		"fetch-to-node": "2.1.0",
+		"hono": "4.7.8"
+	},
+	"devDependencies": {
+		"@types/aws-lambda": "8.10.149"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"license": "MIT"
+}
