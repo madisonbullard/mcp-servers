@@ -10,6 +10,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { version } from "../package.json";
 import { openapiClient } from "./notion/client";
 import { createPage } from "./tools/createPage";
+import { duplicatePage } from "./tools/duplicatePage";
 import { updatePageContent } from "./tools/updatePageContent";
 
 const server = new McpServer({
@@ -68,6 +69,7 @@ const customToolsMap: Record<
 	>
 > = {
 	"/v1/pages/": { post: createPage },
+	"/v1/pages/duplicate": { post: duplicatePage },
 	"/v1/blocks/{id}/children": { patch: updatePageContent },
 	// Use null to skip registration, rather than replacing with a custom tool
 	"/v1/blocks/{id}": { patch: null, delete: null },

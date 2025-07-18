@@ -21,11 +21,11 @@
 		"@madisonbullard/coderabbit-api-client": "workspace:*",
 		"@madisonbullard/mcp-server-tui": "workspace:*",
 		"@madisonbullard/mcp-servers-core": "workspace:*",
-		"@modelcontextprotocol/sdk": "1.11.0"
+		"@modelcontextprotocol/sdk": "1.15.1"
 	},
 	"devDependencies": {
 		"shx": "0.4.0",
-		"tsup": "8.4.0"
+		"tsup": "8.5.0"
 	},
 	"engines": {
 		"node": ">=16.17.0"

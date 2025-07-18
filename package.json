@@ -12,10 +12,10 @@
 		"release": "tsx packages/scripts/release.ts"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@tsconfig/node22": "22.0.1",
+		"@biomejs/biome": "2.1.2",
+		"@tsconfig/node22": "22.0.2",
 		"@types/bun": "latest",
-		"@types/node": "22.15.4",
+		"@types/node": "24.0.14",
 		"typescript": "5.8.3"
 	},
 	"trustedDependencies": ["@biomejs/biome", "esbuild"]

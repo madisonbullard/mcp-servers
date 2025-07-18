@@ -19,16 +19,16 @@
 		"inspector": "bunx @modelcontextprotocol/inspector dist/index.js"
 	},
 	"dependencies": {
-		"@modelcontextprotocol/sdk": "1.11.0",
+		"@modelcontextprotocol/sdk": "1.15.1",
 		"@types/node-fetch": "2.6.12",
 		"node-fetch": "3.3.2",
-		"universal-user-agent": "7.0.2",
+		"universal-user-agent": "7.0.3",
 		"zod": "3.24.4",
-		"zod-to-json-schema": "3.24.5"
+		"zod-to-json-schema": "3.24.6"
 	},
 	"devDependencies": {
 		"shx": "0.4.0",
-		"tsup": "8.4.0"
+		"tsup": "8.5.0"
 	},
 	"engines": {
 		"node": ">=16.17.0"

@@ -10,14 +10,14 @@
 		"clean": "rm -rf dist"
 	},
 	"dependencies": {
-		"@aws-sdk/client-lambda": "3.804.0",
-		"@hono/zod-openapi": "0.19.6",
-		"@modelcontextprotocol/sdk": "1.11.0",
+		"@aws-sdk/client-lambda": "3.846.0",
+		"@hono/zod-openapi": "0.19.10",
+		"@modelcontextprotocol/sdk": "1.15.1",
 		"fetch-to-node": "2.1.0",
-		"hono": "4.7.8"
+		"hono": "4.8.5"
 	},
 	"devDependencies": {
-		"@types/aws-lambda": "8.10.149"
+		"@types/aws-lambda": "8.10.150"
 	},
 	"engines": {
 		"node": ">=18.0.0"

@@ -15,18 +15,18 @@
 		"build": "rm -rf dist && tsup src/index.ts --format esm",
 		"postbuild": "shx chmod +x dist/*.js",
 		"build:watch": "bun run build --watch",
-		"inspector": "bunx @modelcontextprotocol/inspector dist/index.js"
+		"inspector": "bunx @modelcontextprotocol/inspector node dist/index.js"
 	},
 	"dependencies": {
 		"@madisonbullard/mcp-servers-core": "workspace:*",
 		"@madisonbullard/notion-api-client": "workspace:*",
-		"@modelcontextprotocol/sdk": "1.11.0",
+		"@modelcontextprotocol/sdk": "1.15.1",
 		"@notionhq/client": "2.3.0",
 		"zod": "3.24.4"
 	},
 	"devDependencies": {
 		"shx": "0.4.0",
-		"tsup": "8.4.0"
+		"tsup": "8.5.0"
 	},
 	"engines": {
 		"node": ">=16.17.0"

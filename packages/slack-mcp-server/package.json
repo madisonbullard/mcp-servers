@@ -19,14 +19,14 @@
 	},
 	"dependencies": {
 		"@madisonbullard/mcp-servers-core": "workspace:*",
-		"@modelcontextprotocol/sdk": "1.11.0",
+		"@modelcontextprotocol/sdk": "1.15.1",
 		"@slack/oauth": "3.0.3",
-		"@slack/web-api": "7.9.1",
+		"@slack/web-api": "7.9.3",
 		"zod": "3.24.4"
 	},
 	"devDependencies": {
 		"shx": "0.4.0",
-		"tsup": "8.4.0"
+		"tsup": "8.5.0"
 	},
 	"engines": {
 		"node": ">=16.17.0"
