@@ -1,6 +1,6 @@
 {
 	"name": "@madisonbullard/github-mcp-server",
-	"version": "1.20.0",
+	"version": "1.21.0",
 	"description": "MCP server for using the GitHub API",
 	"license": "MIT",
 	"author": "Madison Bullard",
