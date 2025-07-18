@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -7,22 +7,21 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [
-			"packages/notion-api-client/assets",
-			"packages/notion-api-client/src/index.ts",
-			"packages/notion-api-client/src/public/openapi.json",
-			"packages/coderabbit-api-client/src/index.ts",
-			"packages/coderabbit-api-client/src/public/openapi.json",
-			"dist"
+		"includes": [
+			"**",
+			"!**/packages/notion-api-client/assets",
+			"!**/packages/notion-api-client/src/index.ts",
+			"!**/packages/notion-api-client/src/public/openapi.json",
+			"!**/packages/coderabbit-api-client/src/index.ts",
+			"!**/packages/coderabbit-api-client/src/public/openapi.json",
+			"!**/dist"
 		]
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
 		"rules": {
