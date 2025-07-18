@@ -2,6 +2,7 @@
 	"name": "remote-mcp",
 	"version": "1.21.0",
 	"type": "module",
+	"privte": "true",
 	"description": "Remote MCP server using Streamable HTTP transport for AWS Lambda.",
 	"main": "dist/lambda.js",
 	"types": "dist/lambda.d.ts",
