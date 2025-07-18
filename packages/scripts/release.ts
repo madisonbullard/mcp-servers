@@ -1,6 +1,5 @@
 import * as proc from "node:child_process";
-import path from "node:path";
-import { join } from "node:path";
+import path, { join } from "node:path";
 import { promisify } from "node:util";
 import fs from "fs-extra";
 import pMap from "p-map";

@@ -10,7 +10,9 @@
 	"bin": {
 		"github-mcp-server": "dist/index.js"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"typecheck": "tsc --noEmit",
 		"build": "rm -rf dist && tsup src/index.ts --format esm",

@@ -1,5 +1,4 @@
 import { z } from "@hono/zod-openapi";
-import { ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 
 export function Body<T extends z.ZodTypeAny>(schema: T, description?: string) {
 	return {

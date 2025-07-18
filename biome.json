@@ -29,6 +29,12 @@
 			"style": {
 				"noUnusedTemplateLiteral": "off",
 				"useTemplate": "off"
+			},
+			"correctness": {
+				"noUnusedVariables": {
+					"options": { "ignoreRestSiblings": true },
+					"level": "warn"
+				}
 			}
 		}
 	},

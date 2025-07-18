@@ -3,7 +3,9 @@
 	"version": "0.0.0",
 	"type": "module",
 	"private": true,
-	"workspaces": ["packages/*"],
+	"workspaces": [
+		"packages/*"
+	],
 	"scripts": {
 		"check": "bun biome check",
 		"fix": "bun check --write ./",
@@ -18,5 +20,8 @@
 		"@types/node": "24.0.14",
 		"typescript": "5.8.3"
 	},
-	"trustedDependencies": ["@biomejs/biome", "esbuild"]
+	"trustedDependencies": [
+		"@biomejs/biome",
+		"esbuild"
+	]
 }

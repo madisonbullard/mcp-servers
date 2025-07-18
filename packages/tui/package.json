@@ -13,7 +13,9 @@
 		"dev": "tsc --watch",
 		"typecheck": "tsc --noEmit"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"dependencies": {
 		"@inkjs/ui": "2.0.0",
 		"ink": "5.2.1",

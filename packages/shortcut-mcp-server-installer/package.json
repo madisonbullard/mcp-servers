@@ -4,7 +4,10 @@
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
-	"files": ["dist", "README.md"],
+	"files": [
+		"dist",
+		"README.md"
+	],
 	"access": "public",
 	"bin": {
 		"shortcut-mcp-server-installer": "dist/index.js"

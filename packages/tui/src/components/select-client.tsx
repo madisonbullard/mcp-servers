@@ -1,6 +1,5 @@
 import { MultiSelect } from "@inkjs/ui";
 import { Box, Text } from "ink";
-import { useState } from "react";
 import type { Client } from "../utils/client-configs.js";
 import { clientConfigs } from "../utils/client-configs.js";
 

@@ -21,7 +21,9 @@
 	"engines": {
 		"node": ">=16.17.0"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"typecheck": "tsc --noEmit",
 		"build": "rm -rf dist && tsup src/index.ts --dts --format esm --publicDir ./src/public",
